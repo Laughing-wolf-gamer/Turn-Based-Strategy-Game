@@ -1,4 +1,5 @@
 using UnityEngine;
+using GamerWolf.Utilitys;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -6,6 +7,8 @@ namespace GamerWolf.TurnBasedStratgeyGame {
     public class Node : MonoBehaviour {
         
         #region Variables.
+        [Header("External Referances")]
+        [SerializeField] private Transform linkPrefab;
         [SerializeField] private Transform nodeViewPrefabs;
         [Header("Stats")]
         [SerializeField] private float scaleTime = 0.1f;
@@ -15,16 +18,73 @@ namespace GamerWolf.TurnBasedStratgeyGame {
 
         [SerializeField] private bool autoRun;
         private Vector3 initalSize;
+        private Vector2 m_coordinate;
+        private List<Node> m_neighboursNodes = new List<Node>();
+        private bool isInitialize = false;
+        private List<Node> m_LinkedNeighbours = new List<Node>();
+        private Board board;
+
         #endregion
 
 
         #region Methods.
-
+        private void Awake(){
+            m_coordinate = new Vector2(transform.position.x,transform.position.z);
+        }
         private void Start() {
+            board = Board.Instance;
+            m_neighboursNodes = new List<Node>();
+            m_LinkedNeighbours = new List<Node>();
+            
             if(nodeViewPrefabs != null){
                 initalSize = nodeViewPrefabs.localScale;
                 nodeViewPrefabs.localScale = Vector3.zero;
+                m_neighboursNodes = FindNeighbours(board.GetAllNodeList());
+                if(autoRun){
+                    InitNode();
+                }
             }
+            
+            
+        }
+        [ContextMenu("Initialize")]
+        public void InitNode(){
+            if(!isInitialize){
+                ScaleNodeView();
+                InitNeigboursNodes();
+                isInitialize = true;
+            }
+        }
+        public void InitNeigboursNodes(){
+            StartCoroutine(InitRoutine());
+        }
+        private IEnumerator InitRoutine(){
+            yield return new WaitForSeconds(0.1f);
+            foreach (Node n in m_neighboursNodes){
+                if(!m_LinkedNeighbours.Contains(n)){
+                    LinkNode(n);
+                    n.InitNode();    
+                }
+            }
+            
+            
+        }
+        public void LinkNode(Node _targetNode){
+            Transform linkInstance = Instantiate(linkPrefab,transform.position,Quaternion.identity);
+            linkInstance.transform.SetParent(transform);
+            Link link = linkInstance.GetComponent<Link>();
+            if(link != null){
+                Debug.Log("isIntializing Link");
+                link.DrawLink(transform.position,_targetNode.transform.position);
+            }
+            if(!m_LinkedNeighbours.Contains(_targetNode)){
+                m_LinkedNeighbours.Add(_targetNode);
+
+            }
+            if(!_targetNode.GetLinkedNodes.Contains(this)){
+                _targetNode.m_LinkedNeighbours.Add(this);
+            }
+            
             
         }
         
@@ -37,6 +97,32 @@ namespace GamerWolf.TurnBasedStratgeyGame {
                     "easyType",easeType,
                     "dealyTime",dealyTime
                 ));
+            }
+        }
+        private List<Node> FindNeighbours(List<Node> nodes){
+            List<Node> nList = new List<Node>();
+            foreach(Vector2 dir in Board.direction){
+                Node neighbourNode = nodes.Find(n => n.GetCoordinate == GetCoordinate + dir);
+                if(neighbourNode != null && !nList.Contains(neighbourNode)){
+                    nList.Add(neighbourNode);
+                }
+            }
+
+            return nList;
+        }
+        public List<Node> GetNeighbourNodes{
+            get{
+                return m_neighboursNodes;
+            }
+        }
+        public List<Node> GetLinkedNodes{
+            get{
+                return m_LinkedNeighbours;
+            }
+        }
+        public Vector2 GetCoordinate{
+            get{
+                return Utility.GetVector2Int(m_coordinate);
             }
         }
 
