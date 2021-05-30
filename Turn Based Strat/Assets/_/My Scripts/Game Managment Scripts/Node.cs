@@ -10,13 +10,17 @@ namespace GamerWolf.TurnBasedStratgeyGame {
         [Header("External Referances")]
         [SerializeField] private Transform linkPrefab;
         [SerializeField] private Transform nodeViewPrefabs;
+        [SerializeField] private LayerMask obstacleMask;
+        [SerializeField] private bool isGoal = false;
         [Header("Stats")]
         [SerializeField] private float scaleTime = 0.1f;
         [SerializeField] private float dealyTime = 0.25f;
         [Header("ITween Variables.")]
         [SerializeField] private iTween.EaseType easeType = iTween.EaseType.easeInExpo;
 
-        [SerializeField] private bool autoRun;
+        /// Private Variables.
+
+        
         private Vector3 initalSize;
         private Vector2 m_coordinate;
         private List<Node> m_neighboursNodes = new List<Node>();
@@ -40,9 +44,7 @@ namespace GamerWolf.TurnBasedStratgeyGame {
                 initalSize = nodeViewPrefabs.localScale;
                 nodeViewPrefabs.localScale = Vector3.zero;
                 m_neighboursNodes = FindNeighbours(board.GetAllNodeList());
-                if(autoRun){
-                    InitNode();
-                }
+                
             }
             
             
@@ -62,8 +64,11 @@ namespace GamerWolf.TurnBasedStratgeyGame {
             yield return new WaitForSeconds(0.1f);
             foreach (Node n in m_neighboursNodes){
                 if(!m_LinkedNeighbours.Contains(n)){
-                    LinkNode(n);
-                    n.InitNode();    
+                    Obstacles obstacle = FindObstacle(n);
+                    if(obstacle == null){
+                        LinkNode(n);
+                        n.InitNode();    
+                    }
                 }
             }
             
@@ -110,6 +115,15 @@ namespace GamerWolf.TurnBasedStratgeyGame {
 
             return nList;
         }
+        private Obstacles FindObstacle(Node _targetNode){
+            Vector3 direction = _targetNode.transform.position - transform.position;
+            RaycastHit hit;
+            if(Physics.Raycast(transform.position,direction,out hit,Board.spacing,obstacleMask,QueryTriggerInteraction.UseGlobal)){
+//                Debug.Log("Node Find Obstacel : hit an Obstacle form " + this.name + " to " + _targetNode.name);
+                return hit.transform.GetComponent<Obstacles>();
+            }
+            return null;
+        }
         public List<Node> GetNeighbourNodes{
             get{
                 return m_neighboursNodes;
@@ -123,6 +137,11 @@ namespace GamerWolf.TurnBasedStratgeyGame {
         public Vector2 GetCoordinate{
             get{
                 return Utility.GetVector2Int(m_coordinate);
+            }
+        }
+        public bool GetGoalNode{
+            get{
+                return isGoal;
             }
         }
 

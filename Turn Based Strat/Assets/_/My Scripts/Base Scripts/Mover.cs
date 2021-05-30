@@ -6,7 +6,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
     public class Mover : MonoBehaviour {
         
         #region Variables.
-        private const float moveAmount = 2f;
+        private const float moveAmount = 8f;
         [SerializeField] private float delayTime = 0.1f;
         [SerializeField] private float moveSpeed = 3f;
         [SerializeField] private Vector3 destination;
@@ -16,29 +16,49 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         [SerializeField] private bool isMoveing;
 
 
-        
+        private Board board;
         #endregion
 
 
         #region Methods.
+        private void Start(){
+            board = Board.Instance;
+            board.SetPlayerNode(this);
+            UpdateBoard();
+            board.GetPlayerNode.InitNode();
+        }
         
         public bool GetIsMoveing(){
             return isMoveing;
         }
+        // Move the Player Left.
         public void MoveLeft(){
-            Move(transform.position + Vector3.left * moveAmount,delayTime);
+            Move(transform.position + Vector3.left * Board.spacing,delayTime);
         }
+        // Move the Player Right.
         public void MoveRight(){
-            Move(transform.position + Vector3.right * moveAmount,delayTime);
+            Move(transform.position + Vector3.right * Board.spacing,delayTime);
         }
+        // Move the Player Forward.
         public void MoveFoward(){
-            Move(transform.position + Vector3.forward * moveAmount,delayTime);
+            Move(transform.position + Vector3.forward * Board.spacing,delayTime);
         }
+        // Move the Player BackWard.
         public void MoveBack(){
-            Move(transform.position + Vector3.back * moveAmount,delayTime);
+            Move(transform.position + Vector3.back * Board.spacing,delayTime);
         }
         private void Move(Vector3 _Destination,float _delayTime = 0.0f){
-            StartCoroutine(MoveCouroutine(_delayTime,_Destination));
+            // Move the player to a Destination.
+            Node targetNode = board.FindNodeAt(_Destination);
+            if(targetNode != null && board.GetPlayerNode.GetLinkedNodes.Contains(targetNode)){
+                StartCoroutine(MoveCouroutine(_delayTime,_Destination));
+            }
+        }
+        private void UpdateBoard(){
+            if(board != null){
+                // Updating the Board for Player Positon on the Board.
+                board.UpdatePlayerNode();
+            }
         }
         
 
@@ -59,6 +79,8 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             iTween.Stop(gameObject);
             transform.position = _destination;
             isMoveing = false;
+            // Updating the Board for Player Positon on the Board.
+            UpdateBoard();
         }
 
         #endregion

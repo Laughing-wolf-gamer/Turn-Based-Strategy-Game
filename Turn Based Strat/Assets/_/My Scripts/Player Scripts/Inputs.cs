@@ -9,11 +9,13 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         private float horizontalInput;
         private float verticalInputs;
 
+        
         #endregion
 
 
         #region Methods.
         private void Update(){
+            
             verticalInputs = Input.GetAxisRaw("Vertical");
             horizontalInput = Input.GetAxisRaw("Horizontal");
             

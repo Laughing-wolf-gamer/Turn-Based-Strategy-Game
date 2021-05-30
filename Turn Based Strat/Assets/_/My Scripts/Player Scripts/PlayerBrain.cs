@@ -7,17 +7,22 @@ namespace GamerWolf.TurnBasedStratgeyGame{
     public class PlayerBrain : MonoBehaviour {
         
         #region Variables.
-
+        private Inputs input;
+        private Mover mover;
+        private bool enableInputs = false;
         #endregion
 
-        private Mover mover;
-        private Inputs input;
+
         #region Methods.
         private void Awake(){
             mover = GetComponent<Mover>();
             input = GetComponent<Inputs>();
+            
         }
-
+        private void Start(){
+            GameHandler.Instance.SetPlayer(this);
+        }
+        public bool EnableInput{get {return enableInputs;} set{enableInputs = value;}}
         
 
         
@@ -26,19 +31,22 @@ namespace GamerWolf.TurnBasedStratgeyGame{
                 return;
             }
 
-            if(input.GetInputs() != Vector2.zero) {
-                if(input.GetInputs().x > 0) {
-                    mover.MoveLeft();
-                }else if(input.GetInputs().x < 0) {
-                    mover.MoveRight();
-                }
-                if(input.GetInputs().y > 0) {
-                    mover.MoveBack();
-                }else if(input.GetInputs().y < 0) {
-                    mover.MoveFoward();
+            if(enableInputs){
+                if(input.GetInputs() != Vector2.zero) {
+                    if(input.GetInputs().x > 0) {
+                        mover.MoveLeft();
+                    }else if(input.GetInputs().x < 0) {
+                        mover.MoveRight();
+                    }
+                    if(input.GetInputs().y > 0) {
+                        mover.MoveBack();
+                    }else if(input.GetInputs().y < 0) {
+                        mover.MoveFoward();
+                    }
                 }
             }
         }
+        
 
         #endregion
 
