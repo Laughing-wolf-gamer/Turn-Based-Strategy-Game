@@ -1,36 +1,53 @@
 using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace GamerWolf.TurnBasedStratgeyGame{
     public class Mover : MonoBehaviour {
         
-        #region Variables.
-        private const float moveAmount = 8f;
+        #region Variables................................
+        [Header("Events....")]
+        [SerializeField] protected UnityEvent finishedMovementEvent;
+        [Header("Stats")]
         [SerializeField] private float delayTime = 0.1f;
         [SerializeField] private float moveSpeed = 3f;
-        [SerializeField] private Vector3 destination;
+        [SerializeField] protected float rotateTime = 0.3f;
         [SerializeField] private iTween.EaseType easeType = iTween.EaseType.easeInExpo;
+        [SerializeField] protected bool isMoveing;
+        protected bool faceTarget = false;
+        protected Vector3 destination;
 
 
-        [SerializeField] private bool isMoveing;
 
-
-        private Board board;
+        protected Board m_board;
+        protected Node m_currentNode;
+        
+        
         #endregion
 
 
         #region Methods.
-        private void Start(){
-            board = Board.Instance;
-            board.SetPlayerNode(this);
-            UpdateBoard();
-            board.GetPlayerNode.InitNode();
+        protected virtual void Awake(){
+            
         }
+
+        protected virtual void Start(){
+            m_board = Board.Instance;
+            UpdateCurrentNode();
+            
+        }
+       
         
         public bool GetIsMoveing(){
             return isMoveing;
         }
+        public Node GetCurrentNode{
+            get{
+                return m_currentNode;
+            }
+        }
+        
         // Move the Player Left.
         public void MoveLeft(){
             Move(transform.position + Vector3.left * Board.spacing,delayTime);
@@ -47,23 +64,36 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         public void MoveBack(){
             Move(transform.position + Vector3.back * Board.spacing,delayTime);
         }
-        private void Move(Vector3 _Destination,float _delayTime = 0.0f){
-            // Move the player to a Destination.
-            Node targetNode = board.FindNodeAt(_Destination);
-            if(targetNode != null && board.GetPlayerNode.GetLinkedNodes.Contains(targetNode)){
-                StartCoroutine(MoveCouroutine(_delayTime,_Destination));
+        public void Move(Vector3 _Destination,float _delayTime = 0.0f){
+            if(isMoveing){
+                Debug.LogWarning(string.Concat("Already is Moving."));
+                return;
             }
-        }
-        private void UpdateBoard(){
-            if(board != null){
-                // Updating the Board for Player Positon on the Board.
-                board.UpdatePlayerNode();
+            
+            // Move to a Destination.
+            Node targetNode = m_board.FindNodeAt(_Destination);
+            if(targetNode != null){
+                if(m_currentNode != null){
+                    if(m_currentNode.GetLinkedNodes.Contains(targetNode)){
+                        StartCoroutine(MoveCouroutine(_delayTime,_Destination));
+                    }
+                }
             }
+            
+            
         }
         
 
-        private IEnumerator MoveCouroutine(float _delayTime,Vector3 _destination){
+        
+        
+
+        protected virtual IEnumerator MoveCouroutine(float _delayTime,Vector3 _destination){
             isMoveing = true;
+            Debug.Log( transform.name + " is Moveing");
+            destination = _destination;
+            if(faceTarget){
+                FaceTargetDirection();
+            }
             yield return new WaitForSeconds(delayTime);
             iTween.MoveTo(gameObject,iTween.Hash(
                 "x",_destination.x,
@@ -79,9 +109,27 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             iTween.Stop(gameObject);
             transform.position = _destination;
             isMoveing = false;
-            // Updating the Board for Player Positon on the Board.
-            UpdateBoard();
+            UpdateCurrentNode();
         }
+        private void UpdateCurrentNode(){
+            if(m_board != null){
+                m_currentNode = m_board.FindNodeAt(transform.position);
+            }
+        }
+        public void FaceTargetDirection(){
+            Vector3 dir = destination - transform.position;
+            Quaternion rotDir = Quaternion.LookRotation(dir,Vector3.up);
+            float newY = rotDir.eulerAngles.y;
+            iTween.RotateTo(gameObject,iTween.Hash(
+                "y",newY,
+                "delay",0f,
+                "easeType",easeType,
+                "time",rotateTime
+            ));
+            
+        }
+
+
 
         #endregion
 

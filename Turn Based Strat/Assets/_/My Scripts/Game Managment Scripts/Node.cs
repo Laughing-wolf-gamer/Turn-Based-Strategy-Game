@@ -23,7 +23,7 @@ namespace GamerWolf.TurnBasedStratgeyGame {
         
         private Vector3 initalSize;
         private Vector2 m_coordinate;
-        private List<Node> m_neighboursNodes = new List<Node>();
+        private List<Node> m_neighboursNodesList = new List<Node>();
         private bool isInitialize = false;
         private List<Node> m_LinkedNeighbours = new List<Node>();
         private Board board;
@@ -37,13 +37,13 @@ namespace GamerWolf.TurnBasedStratgeyGame {
         }
         private void Start() {
             board = Board.Instance;
-            m_neighboursNodes = new List<Node>();
+            m_neighboursNodesList = new List<Node>();
             m_LinkedNeighbours = new List<Node>();
             
             if(nodeViewPrefabs != null){
                 initalSize = nodeViewPrefabs.localScale;
                 nodeViewPrefabs.localScale = Vector3.zero;
-                m_neighboursNodes = FindNeighbours(board.GetAllNodeList());
+                m_neighboursNodesList = FindNeighbours(board.GetAllNodeList());
                 
             }
             
@@ -62,7 +62,7 @@ namespace GamerWolf.TurnBasedStratgeyGame {
         }
         private IEnumerator InitRoutine(){
             yield return new WaitForSeconds(0.1f);
-            foreach (Node n in m_neighboursNodes){
+            foreach (Node n in m_neighboursNodesList){
                 if(!m_LinkedNeighbours.Contains(n)){
                     Obstacles obstacle = FindObstacle(n);
                     if(obstacle == null){
@@ -79,7 +79,7 @@ namespace GamerWolf.TurnBasedStratgeyGame {
             linkInstance.transform.SetParent(transform);
             Link link = linkInstance.GetComponent<Link>();
             if(link != null){
-                Debug.Log("isIntializing Link");
+
                 link.DrawLink(transform.position,_targetNode.transform.position);
             }
             if(!m_LinkedNeighbours.Contains(_targetNode)){
@@ -124,9 +124,15 @@ namespace GamerWolf.TurnBasedStratgeyGame {
             }
             return null;
         }
+        public Node FindNeighbourAt(List<Node> nodes,Vector2 direction){
+            return nodes.Find( n => n.GetCoordinate == GetCoordinate + direction);
+        }
+        public Node FindNeighbourAt(Vector2 dir){
+            return FindNeighbourAt(m_neighboursNodesList,dir);
+        }
         public List<Node> GetNeighbourNodes{
             get{
-                return m_neighboursNodes;
+                return m_neighboursNodesList;
             }
         }
         public List<Node> GetLinkedNodes{

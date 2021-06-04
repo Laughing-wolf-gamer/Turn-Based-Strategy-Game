@@ -7,7 +7,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
     public class Board : MonoBehaviour {
         
         #region Variables.
-        public static float spacing = 8f;
+        public static float spacing = 6f;
         public static Vector2[] direction = {
             new Vector2(spacing,0f),
             new Vector2(-spacing,0f),
@@ -20,10 +20,12 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         [SerializeField] private iTween.EaseType easeType = iTween.EaseType.easeInOutExpo;
 
         [SerializeField] private List<Node> allNodeList = new List<Node>();
+        [SerializeField] private Transform[] capturedPositionsArray;
+        private int m_currentCapturedPosition = 0;
 
-        private Node playerNode;
-        private Node goalNode;
-        private Mover playerMover;
+        private Node m_playerNode;
+        private Node m_goalNode;
+        private PlayerMover m_playerMover;
         
         #endregion
 
@@ -41,12 +43,14 @@ namespace GamerWolf.TurnBasedStratgeyGame{
                 Destroy(Instance);
             }
             // Set Goal Node.
-            goalNode = FindGoalNode();
+            m_goalNode = FindGoalNode();
+            
         }
-        
-        public void SetPlayerNode(Mover playerMover){
-            this.playerMover = playerMover;
+        public void SetPlayer(PlayerMover _player){
+            
+            m_playerMover = _player;
         }
+       
 
         
         // Get all the list of the Nodes in the Games.
@@ -60,17 +64,32 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             Vector2 boardCord = Utility.GetVector2Int(new Vector2(positon.x,positon.z));
             return allNodeList.Find(n => n.GetCoordinate == boardCord);
         }
-        // Find The Player Node
-        private Node FindPlayerNode(){
-            if(playerMover != null && !playerMover.GetIsMoveing()){
-                return FindNodeAt(playerMover.transform.position);
+
+
+
+        // Find The Player Node........
+        public Node FindPlayerNode(){
+            if(m_playerMover != null && !m_playerMover.GetIsMoveing()){
+                return FindNodeAt(m_playerMover.transform.position);
             }
             Debug.Log("Board: Find Player Node Error : Player is Not set.");
             return null;
         }
+        public List<EnemyBrain> FindEnemiesAt(Node _node){
+            List<EnemyBrain> foundEnemies = new List<EnemyBrain>();
+            foreach (EnemyBrain enemy in GameHandler.Instance.GetEnemyList){
+                Mover enemyMove = enemy.transform.GetComponent<EnemyMover>();
+                if(enemyMove.GetCurrentNode == _node){
+                    foundEnemies.Add(enemy);
+                }
+            }
+
+            return foundEnemies;
+        }
+        // Drawing the goal Node...............
         public void DrawGoalNode(){
             if(goalPrefab != null){
-                Transform goalInstance = Instantiate(goalPrefab,goalNode.transform.position,Quaternion.identity);
+                Transform goalInstance = Instantiate(goalPrefab,m_goalNode.transform.position,Quaternion.identity);
                 iTween.ScaleFrom(goalInstance.gameObject,iTween.Hash(
                     "scale",Vector3.zero,
                     "time",drawGoalNodeTime,
@@ -79,26 +98,57 @@ namespace GamerWolf.TurnBasedStratgeyGame{
                 ));
             }
         }
+        public void InitBoard(){
+            if(m_playerNode != null){
+                Debug.Log("Initializeing Board");
+                m_playerNode.InitNode();
+                // // Need to work on It.
+                // m_playerMover.ShowingCompass(true);
+            }
+        }
         // find the Goal Node.
         private Node FindGoalNode(){
             return allNodeList.Find(n => n.GetGoalNode);
         }
         public void UpdatePlayerNode(){
-            playerNode = FindPlayerNode();
+            
+            m_playerNode = FindPlayerNode();
         }
         public Node GetGoalNode{get{
-                return goalNode;
+                return m_goalNode;
             }
         }
         // Get the reference for the Player Node.
         public Node GetPlayerNode{
             get{
-                return playerNode;
+                return m_playerNode;
             }
         }
+        public int GetCurrentCapturedPosition{
+            get{
+                return m_currentCapturedPosition;
+            }set{
+                
+                m_currentCapturedPosition = value;
+            }
+
+        }
+        public Transform[] GetCapturePositionArray{
+            get{
+                return capturedPositionsArray;
+            }
+        }
+
+
         private void OnDrawGizmos(){
-            if(playerNode != null){
-                Gizmos.DrawSphere(playerNode.transform.position,0.5f);
+            if(m_playerNode != null){
+                Gizmos.DrawSphere(m_playerNode.transform.position,1f);
+            }
+            if(capturedPositionsArray.Length > 0){
+                Gizmos.color = Color.blue;
+                foreach(Transform capturePos in capturedPositionsArray){
+                    Gizmos.DrawCube(capturePos.position,Vector3.one * 0.5f);
+                }
             }
         }
 
