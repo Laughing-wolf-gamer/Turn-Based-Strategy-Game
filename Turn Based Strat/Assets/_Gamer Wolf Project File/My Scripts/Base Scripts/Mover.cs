@@ -50,19 +50,19 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         
         // Move the Player Left.
         public void MoveLeft(){
-            Move(transform.position + Vector3.left * Board.spacing,delayTime);
+            Move(transform.position + transform.TransformVector(Vector3.left) * Board.spacing,delayTime);
         }
         // Move the Player Right.
         public void MoveRight(){
-            Move(transform.position + Vector3.right * Board.spacing,delayTime);
+            Move(transform.position + transform.TransformVector(Vector3.right) * Board.spacing,delayTime);
         }
         // Move the Player Forward.
         public void MoveFoward(){
-            Move(transform.position + Vector3.forward * Board.spacing,delayTime);
+            Move(transform.position + transform.TransformVector(Vector3.forward) * Board.spacing,delayTime);
         }
         // Move the Player BackWard.
         public void MoveBack(){
-            Move(transform.position + Vector3.back * Board.spacing,delayTime);
+            Move(transform.position + transform.TransformVector(Vector3.back) * Board.spacing,delayTime);
         }
         public void Move(Vector3 _Destination,float _delayTime = 0.0f){
             if(isMoveing){

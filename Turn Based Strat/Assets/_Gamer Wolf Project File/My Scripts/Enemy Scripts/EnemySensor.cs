@@ -12,6 +12,8 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         
         public bool m_foundPlayer;
         private Board m_board;
+        
+        private bool m_isPlayerHid;
 
         #endregion
 
@@ -23,15 +25,21 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             
         }
         public void UpdateSensore(Node _currentNode){
-            Vector3 worldSpacePositonToSearch = transform.TransformVector(directionToSearch) + transform.position;
-            m_nodeToSearch = m_board.FindNodeAt(worldSpacePositonToSearch);
-            if(_currentNode.GetLinkedNodes.Contains(m_nodeToSearch)){
-                if(m_nodeToSearch == m_board.GetPlayerNode){
-                    m_foundPlayer = true;
+            if(!m_isPlayerHid){
+                Vector3 worldSpacePositonToSearch = transform.TransformVector(directionToSearch) + transform.position;
+                m_nodeToSearch = m_board.FindNodeAt(worldSpacePositonToSearch);
+                if(_currentNode.GetLinkedNodes.Contains(m_nodeToSearch)){
+                    if(m_nodeToSearch == m_board.GetPlayerNode){
+                        m_foundPlayer = true;
+                    }
                 }
             }
             
         }
+        public void SetPlayerHiden(bool _State){
+            m_isPlayerHid = _State;
+        }
+        
 
         
         
@@ -40,6 +48,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
                 return m_foundPlayer;
             }
         }
+        
 
         #endregion
 

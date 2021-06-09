@@ -13,6 +13,7 @@ namespace GamerWolf.TurnBasedStratgeyGame {
         [SerializeField] private LayerMask obstacleMask;
         [SerializeField] private bool isGoal = false;
         [SerializeField] private bool hasItem = false;
+        [SerializeField] private bool canHideThePlayer = false;
         [Header("Stats")]
         [SerializeField] private float scaleTime = 0.1f;
         [SerializeField] private float dealyTime = 0.25f;
@@ -47,8 +48,6 @@ namespace GamerWolf.TurnBasedStratgeyGame {
                 m_neighboursNodesList = FindNeighbours(board.GetAllNodeList());
                 
             }
-            
-            
         }
         
         [ContextMenu("Initialize")]
@@ -155,6 +154,11 @@ namespace GamerWolf.TurnBasedStratgeyGame {
         public bool HasItemNode{
             get{
                 return hasItem;
+            }
+        }
+        public bool GetHideThePlayerNode{
+            get{
+                return canHideThePlayer;
             }
         }
         

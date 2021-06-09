@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df127d8aee6f72440aa695dc353eecbe, type: 3}
-  m_Name: Complete Level in 10 Steps
+  m_Name: Task 2
   m_EditorClassIdentifier: 
   taskType: 0
-  taskDescriptsion: Complete the Level in less than 10 steps.
+  taskDescriptsion: Complete the Level in less than 4 steps.
   isTaskCompleted: 0

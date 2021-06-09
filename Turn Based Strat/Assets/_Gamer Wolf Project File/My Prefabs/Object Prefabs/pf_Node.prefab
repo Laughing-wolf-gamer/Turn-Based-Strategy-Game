@@ -132,6 +132,7 @@ MonoBehaviour:
     m_Bits: 256
   isGoal: 0
   hasItem: 0
-  scaleTime: 0.5
-  dealyTime: 1
-  easeType: 17
+  canHideThePlayer: 0
+  scaleTime: 1
+  dealyTime: 1.2
+  easeType: 10

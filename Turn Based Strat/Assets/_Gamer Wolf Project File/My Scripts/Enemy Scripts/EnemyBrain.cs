@@ -18,6 +18,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         private EnemyMover enemyMover;
         private EnemyAttack enemyAttack;
         private EnemySensor sensor;
+        
         private Board m_board;
         private bool m_isDead;
         #endregion
@@ -29,6 +30,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             enemyMover = GetComponent<EnemyMover>();
             enemyAttack = GetComponent<EnemyAttack>();
             sensor = GetComponent<EnemySensor>();
+            
 
         }
         
@@ -53,11 +55,20 @@ namespace GamerWolf.TurnBasedStratgeyGame{
                 deathEvents?.Invoke();
             }
         }
+        
         private IEnumerator PlayTurnRoutine(){
             if(m_gameHandler != null && !m_gameHandler.GetisGameOver){
 
                 // Updtae Sensore.
+                if(m_gameHandler.isPlayerHiden()){
+                    sensor.SetPlayerHiden(true);
+                }else{
+                    sensor.SetPlayerHiden(false);
+                }
                 sensor.UpdateSensore(enemyMover.GetCurrentNode);
+                // if(sensor.GetIsAlerted){
+                //     pathfinding.
+                // }
                 // Wait
                 yield return new WaitForSeconds(0f);
 
@@ -72,7 +83,9 @@ namespace GamerWolf.TurnBasedStratgeyGame{
                     // Notifie the GameHandler to Loss Level...........
                     m_gameHandler.LossLevel();
                     
-                }else{
+                }
+                
+                else{
 
                     // movement.
                     // Enemy Mover . some More Methodes........

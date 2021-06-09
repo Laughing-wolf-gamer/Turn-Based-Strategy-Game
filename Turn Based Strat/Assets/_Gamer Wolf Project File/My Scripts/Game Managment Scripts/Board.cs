@@ -15,6 +15,8 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             new Vector2(0f,-spacing)
         };
         [SerializeField] private Transform goalPrefab;
+        [SerializeField] private Transform pickUpItemPrefabs;
+        [SerializeField] private Transform playerHideItems;
         [SerializeField] private float drawGoalNodeTime;
         [SerializeField] private float drawGoalDelayTime;
         [SerializeField] private iTween.EaseType easeType = iTween.EaseType.easeInOutExpo;
@@ -22,15 +24,15 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         [SerializeField] private List<Node> allNodeList = new List<Node>();
         [SerializeField] private Transform[] capturedPositionsArray;
 
-        [Header("Editor")]
-        [SerializeField] private Transform nodeParent;
+        
         
         private int m_currentCapturedPosition = 0;
-
         private Node m_playerNode;
         private Node m_goalNode;
         private Node m_itemNode;
+        private List<Node> m_HideThePlayerNodes;
         private PlayerMover m_playerMover;
+        private PickUpItem m_pickupItemInstanec;
         
         #endregion
 
@@ -50,7 +52,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             // Set Goal Node.
             m_goalNode = FindGoalNode();
             m_itemNode = FindItemNode();
-            
+            m_HideThePlayerNodes = FindHideThePlayerNode();
         }
         public void SetPlayer(PlayerMover _player){
             
@@ -106,6 +108,16 @@ namespace GamerWolf.TurnBasedStratgeyGame{
                 ));
             }
         }
+        public void SpawnItem(){
+            foreach(Node n in m_HideThePlayerNodes){
+                Instantiate(playerHideItems,n.transform.position,Quaternion.identity);
+            }
+            Transform pickupItemInstanec = Instantiate(pickUpItemPrefabs,m_itemNode.transform.position,Quaternion.identity) as Transform;
+            if(pickupItemInstanec.GetComponent<PickUpItem>() != null){
+                m_pickupItemInstanec = pickupItemInstanec.GetComponent<PickUpItem>();
+            }
+        }
+
         public void InitBoard(){
             if(m_playerNode != null){
                 Debug.Log("Initializeing Board");
@@ -119,6 +131,19 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         private Node FindGoalNode(){
             return allNodeList.Find(n => n.GetGoalNode);
         }
+        private List<Node> FindHideThePlayerNode(){
+            List<Node> hideThePlayerNodeList = new List<Node>();
+            
+            foreach(Node n in allNodeList){
+                if(n.GetHideThePlayerNode){
+                    hideThePlayerNodeList.Add(n);
+                }
+                
+            }
+            Debug.Log("hideThePlayerNodeList " + hideThePlayerNodeList.Count);
+            return hideThePlayerNodeList;
+            
+        }
         private Node FindItemNode(){
             return allNodeList.Find(n => n.HasItemNode);
         }
@@ -126,13 +151,24 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             
             m_playerNode = FindPlayerNode();
         }
-        public Node GetGoalNode{get{
+        public Node GetGoalNode{
+            get{
                 return m_goalNode;
+            }
+        }
+        public List<Node> GetHideThePlayerNodesList{
+            get{
+                return m_HideThePlayerNodes;
             }
         }
         public Node GetItemNode{
             get{
                 return m_itemNode;
+            }
+        }
+        public PickUpItem GetPickUpItem{
+            get{
+                return m_pickupItemInstanec;
             }
         }
         // Get the reference for the Player Node.

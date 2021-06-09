@@ -6,8 +6,10 @@ namespace GamerWolf.TurnBasedStratgeyGame{
     public enum TaskType{
         StepsCount,
         ColletItem,
+        FinsishTheLevel,
+
     }
-    [CreateAssetMenu(fileName = "New Task",menuName = "Scriptable Objects/Task System/Tasks")]
+    [CreateAssetMenu(fileName = "New Task",menuName = "Scriptable Objects/Task System/Task")]
     public class Task : ScriptableObject {
         public TaskType taskType;
                 
@@ -15,7 +17,9 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         
         public string taskDescriptsion;
         public bool isTaskCompleted;
+        
     }
+    
     
 
     

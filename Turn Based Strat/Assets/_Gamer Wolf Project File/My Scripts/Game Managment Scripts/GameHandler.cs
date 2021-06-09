@@ -27,7 +27,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         [SerializeField] private UnityEvent OnLevelEndEvents;
         [SerializeField] private UnityEvent loseLevelEvents;
         [SerializeField] private List<EnemyBrain> m_enemyList = new List<EnemyBrain>();
-
+        
         
         
 
@@ -46,7 +46,8 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         private Turn m_currentTurn = Turn.Player;
 
         #endregion
-        public int playerTurnCount;
+        private int playerTurnCount;
+        
 
         #endregion
 
@@ -92,7 +93,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         // Play all the events on the Game starting.
         private IEnumerator StartLevelRoutine(){
             Debug.Log("StartLevelRoutine");
-            m_player.EnableInput = false;
+            m_player.SetInputState(false);
             OnGameStartEvents?.Invoke();
             while (!hasLevelStarted){
                 
@@ -109,13 +110,11 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             Debug.Log("PlayLevelRoutine");
             isGamePlaying = true;
             yield return new WaitForSeconds(delayTime);
-            m_player.EnableInput = true;
+            m_player.SetInputState(true);
             /// Invokes the Level Event......
             OnPlayLevelEvents?.Invoke();
             while(!isGameOver){
                 yield return null;
-
-
                 // Check form Game Over Condition.
                 isGameOver = isWinner();
 
@@ -127,6 +126,20 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         private bool isWinner(){
             return m_board.GetPlayerNode == m_board.GetGoalNode;
         }
+        public bool isPlayerHiden(){
+            foreach(Node n in m_board.GetHideThePlayerNodesList){
+                if(n == m_board.GetPlayerNode){
+                    return true;
+                }
+            }
+            return false;
+        }
+    
+            
+        public bool isOnItem(){
+            return m_board.GetPlayerNode == m_board.GetItemNode;
+        }
+        
         
 
         // Play all the events at the end of the level.
@@ -136,10 +149,10 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             // if(playerTurnCount < 4 && isWinner()){
             //     LevelTaskSystem.Instance.SetCompletedTask(TaskType.StepsCount);
             // }
-            m_player.EnableInput = false;
+            m_player.SetInputState(false);
             /// Invokes the Level end Event.
+            LevelTaskSystem.Instance.SetCompletedTask(playerTurnCount,isGameOver,m_player.hasPickedUpItem);
             OnLevelEndEvents?.Invoke();
-
             while(!hasLevelEnded){
                 yield return null;
             }
@@ -156,7 +169,6 @@ namespace GamerWolf.TurnBasedStratgeyGame{
 
         private IEnumerator LossLevelRoutine(){
             isGameOver = true;
-
             yield return new WaitForSeconds(2f);
             loseLevelEvents?.Invoke();
             Debug.Log("You Loss..................................");

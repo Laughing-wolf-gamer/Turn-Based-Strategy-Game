@@ -10,11 +10,14 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         private float horizontalInput;
         private float verticalInputs;
 
-        
+        private Collider m_collider;
         #endregion
 
 
         #region Methods.
+        private void Awake(){
+            m_collider = GetComponent<Collider>();
+        }
         private void Update(){
             
             verticalInputs = MobileInputs.GetSwipDirection().z;
@@ -24,7 +27,10 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         public Vector2 GetInputs(){
             return new Vector2(horizontalInput,verticalInputs).normalized;
         }
-        
+        public float GetCameraRotationAmount(){
+            float swipMultiPlier = 5f;
+            return MobileInputs.GetSwipAmount() * swipMultiPlier;
+        }
 
         #endregion
 

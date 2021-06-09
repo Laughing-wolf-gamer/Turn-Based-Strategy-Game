@@ -7,7 +7,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
     public class PatrollingEnemy : EnemyMover {
         
         
-        [SerializeField] private Vector3 directionToMove = new Vector3(0f,0f,Board.spacing);
+        private Vector3 directionToMove = new Vector3(0f,0f,Board.spacing);
 
         public override void MoveOneTurn(){
             Patrol();

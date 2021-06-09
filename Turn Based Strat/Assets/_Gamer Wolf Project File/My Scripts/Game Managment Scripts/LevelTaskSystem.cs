@@ -6,8 +6,14 @@ using System.Collections.Generic;
 namespace GamerWolf.TurnBasedStratgeyGame{
     public class LevelTaskSystem : MonoBehaviour {
 
-
         public static LevelTaskSystem Instance{get;private set;}
+        [SerializeField] private TaskSystemUI taskSystemUI;
+
+        [SerializeField] private LevelData tasks;
+        [SerializeField] private int maxStepToCompleteTheLevel;
+
+        
+        
         private void Awake(){
             if(Instance == null){
                 Instance = this;
@@ -17,16 +23,21 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             }
         }
         
-        public List<Task> tasks;
-        public void SetCompletedTask(TaskType _taskType){
-            for (int i = 0; i < tasks.Count; i++){
-                if(tasks[i].taskType == _taskType){
-                    if(!tasks[i].isTaskCompleted){
-                        tasks[i].isTaskCompleted = true;
-                    }
-                }
+        public void SetCompletedTask(int currentLevelStepCount = 0,bool isLevelCompleted = false,bool hasPickedUpItem = false){
+            if(currentLevelStepCount < maxStepToCompleteTheLevel){
+                tasks.GetStepTask();
             }
+            if(isLevelCompleted){
+                tasks.FinsiedTheLevel();
+            }
+            if(hasPickedUpItem){
+                tasks.isColletedItemTask();
+            }
+            taskSystemUI.SetToggle();
         }
+        
+
+
 
 
     }

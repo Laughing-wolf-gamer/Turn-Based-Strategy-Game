@@ -2,15 +2,20 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
 using System.Collections.Generic;
+
 namespace GamerWolf.TurnBasedStratgeyGame{
-    [RequireComponent(typeof(PlayerMover),typeof(Inputs))]
+
+    [RequireComponent(typeof(PlayerMover),typeof(Inputs),typeof(Collider))]
     public class PlayerBrain : TurnManager {
         
         #region Variables.
         [SerializeField] private UnityEvent deathEvent;
+        private Transform GFXTransform;
         private Inputs input;
         private Mover playerMover;
         private bool enableInputs = false;
+        public bool hasPickedUpItem {get;private set;}
+        
         
         #endregion
 
@@ -20,13 +25,16 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             base.Awake();
             input = GetComponent<Inputs>();
             playerMover = GetComponent<Mover>();
-            
+            GFXTransform = transform.Find("Ninja GFX").transform;
+
         }
         protected override void Start(){
             base.Start();
             m_gameHandler.SetPlayer(this);
         }
-        public bool EnableInput{get {return enableInputs;} set{enableInputs = value;}}
+        public void SetInputState(bool _state){
+            enableInputs = _state;
+        }
         
 
         
@@ -37,16 +45,19 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             if(enableInputs){
                 if(input.GetInputs() != Vector2.zero) {
                     if(input.GetInputs().x > 0) {
-                        playerMover.MoveRight();
-                    }else if(input.GetInputs().x < 0) {
                         playerMover.MoveLeft();
+                    }else if(input.GetInputs().x < 0) {
+                        playerMover.MoveRight();
                     }
                     if(input.GetInputs().y > 0) {
-                        playerMover.MoveFoward();
-                    }else if(input.GetInputs().y < 0) {
                         playerMover.MoveBack();
+                    }else if(input.GetInputs().y < 0) {
+                        playerMover.MoveFoward();
                     }
                 }
+                CamerMovement.Instance.RotateCamera(input.GetCameraRotationAmount());
+                
+                
             }
         }
         public override void FinsiedTurn(){
@@ -70,16 +81,14 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             }
         }
         public void CollectItem(){
-            
-        
-            if(Board.Instance.GetItemNode == Board.Instance.GetPlayerNode){
-                Interactable item =  Board.Instance.GetItemNode.transform.GetComponent<Interactable>();
-                if(item != null){
-                    item.Interact();
+            if(GameHandler.Instance.isOnItem()){
+                if(Board.Instance.GetPickUpItem != null){
+                    Board.Instance.GetPickUpItem.Interact();
                 }
             }
         
         }
+        
         
 
         #endregion

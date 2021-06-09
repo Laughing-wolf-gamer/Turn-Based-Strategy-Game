@@ -3,16 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace GamerWolf.TurnBasedStratgeyGame{
+    
     public class PickUpItem : Interactable {
         
-        [SerializeField] private GameObject itemView;
+        
         
         public override void Interact(){
             Debug.Log("Item is Picked");
-            Destroy(itemView);
+            Destroy(transform.gameObject);
         }
-        
-
 
     }
 

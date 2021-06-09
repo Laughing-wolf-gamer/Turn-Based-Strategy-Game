@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6125454341750937799}
   - component: {fileID: 8381258543994335174}
-  - component: {fileID: 6958345753373101192}
   m_Layer: 9
   m_Name: pf_Item Node
   m_TagString: Untagged
@@ -25,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1203458857183460261}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12, y: 0, z: 6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -52,22 +51,10 @@ MonoBehaviour:
     m_Bits: 256
   isGoal: 0
   hasItem: 1
+  canHideThePlayer: 0
   scaleTime: 0.5
   dealyTime: 1
   easeType: 17
---- !u!114 &6958345753373101192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1203458857183460261}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a785de34aa3effc4a9eedaa68e92ddb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemView: {fileID: 4611960500083071299}
 --- !u!1 &4611960500083071299
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +114,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 21ffb6b56b7f9f6438ccbee63ed62076, type: 2}
+  - {fileID: 2100000, guid: 687a2cbde620bf44eb36c85ffb98209d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
