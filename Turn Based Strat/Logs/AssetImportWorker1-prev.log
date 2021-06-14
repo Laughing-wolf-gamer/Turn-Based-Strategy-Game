@@ -1,0 +1,303 @@
+Using pre-set license
+Built from '2020.3/staging' branch; Version is '2020.3.9f1 (108be757e447) revision 1084391'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Home Single Language; OS build 19043.985; Version 2009; 64bit' Language: 'en' Physical Memory: 8078 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2020.3.9f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker1
+-projectPath
+F:/Git Repositorys/Turn-Based-Strategy-Game/Turn Based Strat
+-logFile
+Logs/AssetImportWorker1.log
+-srvPort
+54083
+Successfully changed project path to: F:/Git Repositorys/Turn-Based-Strategy-Game/Turn Based Strat
+F:/Git Repositorys/Turn-Based-Strategy-Game/Turn Based Strat
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 125.87 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.9f1 (108be757e447)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.9f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path F:/Git Repositorys/Turn-Based-Strategy-Game/Turn Based Strat/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: Intel(R) UHD Graphics 620 (ID=0x3ea0)
+    Vendor:   
+    VRAM:     4039 MB
+    Driver:   27.20.100.9466
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.9f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.9f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.9f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56436
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.9f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.004995 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 126.85 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  8.835 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.003771 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 84.98 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.359 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.09 seconds
+Refreshing native plugins compatible for Editor in 0.97 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2636 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 122.9 MB.
+System memory in use after: 120.1 MB.
+
+Unloading 47 unused Assets to reduce memory usage. Loaded Objects now: 3045.
+Total: 10.563000 ms (FindLiveObjects: 0.762200 ms CreateObjectMapping: 0.257800 ms MarkObjects: 5.211300 ms  DeleteObjects: 4.325500 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/_Gamer Wolf Project File/Textures/textures/MainTex.png
+  artifactKey: Guid(91f0ddff7ab879d47ab17fb01c9290b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/Textures/textures/MainTex.png using Guid(91f0ddff7ab879d47ab17fb01c9290b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0735276886f94f8962e326bca5122080') in 0.832607 seconds
+  Import took 0.883080 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.792999 seconds.
+  path: Assets/_Gamer Wolf Project File/Textures/textures/MainTex.png
+  artifactKey: Guid(91f0ddff7ab879d47ab17fb01c9290b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/Textures/textures/MainTex.png using Guid(91f0ddff7ab879d47ab17fb01c9290b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e03aa075b8ad7514caa10cf2a77ab2d8') in 0.017365 seconds
+  Import took 0.057287 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.015652 seconds.
+  path: Assets/_Gamer Wolf Project File/Textures/textures/TextureSheet.png
+  artifactKey: Guid(6687521b27a2c5f41b53654fb77b72f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/Textures/textures/TextureSheet.png using Guid(6687521b27a2c5f41b53654fb77b72f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9a154ae8d2b5326d0f4f6898e50ace99') in 0.058465 seconds
+  Import took 0.132619 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 20.246503 seconds.
+  path: Assets/_Gamer Wolf Project File/Textures/textures/TextureSheet.png
+  artifactKey: Guid(6687521b27a2c5f41b53654fb77b72f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/Textures/textures/TextureSheet.png using Guid(6687521b27a2c5f41b53654fb77b72f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '62050fe48d05a0a13f324f8dd66d249a') in 0.052085 seconds
+  Import took 0.109414 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.521991 seconds.
+  path: Assets/_Gamer Wolf Project File/Textures/textures/TextureSheet.png
+  artifactKey: Guid(6687521b27a2c5f41b53654fb77b72f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/Textures/textures/TextureSheet.png using Guid(6687521b27a2c5f41b53654fb77b72f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a56c192cb9a123dd6b75844e02f8adc') in 0.037904 seconds
+  Import took 0.081437 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.051635 seconds.
+  path: Assets/_Gamer Wolf Project File/Textures/textures/TextureSheet.png
+  artifactKey: Guid(6687521b27a2c5f41b53654fb77b72f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/Textures/textures/TextureSheet.png using Guid(6687521b27a2c5f41b53654fb77b72f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e01397d40636df05efe0a52473e4a8c1') in 0.017488 seconds
+  Import took 0.028808 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1258.635142 seconds.
+  path: Assets/_Gamer Wolf Project File/Boards/Boards.fbx
+  artifactKey: Guid(1e1085fdb773c64459fe6401371c0c98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/Boards/Boards.fbx using Guid(1e1085fdb773c64459fe6401371c0c98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4c2811394ff6aa88ce80477bfb305d92') in 1.185500 seconds
+  Import took 1.197509 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.025323 seconds.
+  path: Assets/_Gamer Wolf Project File/Boards/River.fbx
+  artifactKey: Guid(b9cc34d23a84f5c429d9e26dc52d5c28) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/Boards/River.fbx using Guid(b9cc34d23a84f5c429d9e26dc52d5c28) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9d48bf26d92439f29f1d05df57d96916') in 0.049269 seconds
+  Import took 0.076077 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 95.774542 seconds.
+  path: Assets/_Gamer Wolf Project File/Boards/Boards.fbx
+  artifactKey: Guid(1e1085fdb773c64459fe6401371c0c98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/Boards/Boards.fbx using Guid(1e1085fdb773c64459fe6401371c0c98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '29223d3d5288c551ddb310ac9d8b26d7') in 0.171391 seconds
+  Import took 0.217413 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 117.443733 seconds.
+  path: Assets/_Gamer Wolf Project File/Boards/Board1.fbx
+  artifactKey: Guid(2efb123cdc8da1a4b9b6cab7ab8d1154) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/Boards/Board1.fbx using Guid(2efb123cdc8da1a4b9b6cab7ab8d1154) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2cd0f125796dc3fa8753d428b1cac30') in 0.038305 seconds
+  Import took 0.196751 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 132.996544 seconds.
+  path: Assets/_Gamer Wolf Project File/Boards/Items set 1.fbx
+  artifactKey: Guid(5b68dc6664685e446b2d65ee5ce59a22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/Boards/Items set 1.fbx using Guid(5b68dc6664685e446b2d65ee5ce59a22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c06a5635ac688c6e54d877eac8b6110c') in 0.636511 seconds
+  Import took 0.647125 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 82.121788 seconds.
+  path: Assets/_Gamer Wolf Project File/Boards/Board1.fbx
+  artifactKey: Guid(2efb123cdc8da1a4b9b6cab7ab8d1154) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/Boards/Board1.fbx using Guid(2efb123cdc8da1a4b9b6cab7ab8d1154) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '014da9a58d51c6e4ca8a9cdd3c5aadb0') in 0.038260 seconds
+  Import took 0.046888 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 138.562401 seconds.
+  path: Assets/_Gamer Wolf Project File/Boards/Board1.fbx
+  artifactKey: Guid(2efb123cdc8da1a4b9b6cab7ab8d1154) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/Boards/Board1.fbx using Guid(2efb123cdc8da1a4b9b6cab7ab8d1154) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a7b5029d6d169c85859375644f915c01') in 0.114635 seconds
+  Import took 0.327777 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.678794 seconds.
+  path: Assets/_Gamer Wolf Project File/Boards/Boards.fbx
+  artifactKey: Guid(1e1085fdb773c64459fe6401371c0c98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/Boards/Boards.fbx using Guid(1e1085fdb773c64459fe6401371c0c98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eb43841c8505104f6c1cd1b7ce7a921a') in 0.361882 seconds
+  Import took 0.446977 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 94.939304 seconds.
+  path: Assets/_Gamer Wolf Project File/Boards/Boards.fbx
+  artifactKey: Guid(1e1085fdb773c64459fe6401371c0c98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/Boards/Boards.fbx using Guid(1e1085fdb773c64459fe6401371c0c98) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '29b4134e5a196721653fe03808cf3cd2') in 0.177932 seconds
+  Import took 0.235697 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 463.103737 seconds.
+  path: Assets/_Gamer Wolf Project File/Models/Item Set 1.fbx
+  artifactKey: Guid(f7b75815502da7a489bb88f265c8ec19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/Models/Item Set 1.fbx using Guid(f7b75815502da7a489bb88f265c8ec19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd59c6136841c92e3ad74b03eb17ce90e') in 1.614340 seconds
+  Import took 1.715245 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 14.403603 seconds.
+  path: Assets/_Gamer Wolf Project File/Models/Item Set 1.fbx
+  artifactKey: Guid(f7b75815502da7a489bb88f265c8ec19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/Models/Item Set 1.fbx using Guid(f7b75815502da7a489bb88f265c8ec19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd2ab12f6e8641328538f5c9681652c35') in 1.500685 seconds
+  Import took 1.532250 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 346.867945 seconds.
+  path: Assets/_Gamer Wolf Project File/Models/Tiles.fbx
+  artifactKey: Guid(0d376af6be1a084438f151dee01735e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/Models/Tiles.fbx using Guid(0d376af6be1a084438f151dee01735e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2ff4f9bd90492fa37bc32799fa043027') in 0.161249 seconds
+  Import took 0.206172 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 128.406901 seconds.
+  path: Assets/Scenes/Main Scene.unity
+  artifactKey: Guid(d1c3109bdb54ad54c8a2b2838528e640) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Main Scene.unity using Guid(d1c3109bdb54ad54c8a2b2838528e640) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8d491403052b9f5273f0985d1c837def') in 0.004692 seconds
+  Import took 0.085037 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 265.887563 seconds.
+  path: Assets/_Gamer Wolf Project File/Models/Enemy/Turn Based Combat Game Project.fbx
+  artifactKey: Guid(d9b8d17e71d3fc7489fbcefde5188f78) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/Models/Enemy/Turn Based Combat Game Project.fbx using Guid(d9b8d17e71d3fc7489fbcefde5188f78) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0845b6fc381ee09314d136a261294984') in 0.342104 seconds
+  Import took 0.394352 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000601 seconds.
+  path: Assets/_Gamer Wolf Project File/My Materials/Common Mat.mat
+  artifactKey: Guid(740a28cb0cf89d8499d19e13bf9b70e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/My Materials/Common Mat.mat using Guid(740a28cb0cf89d8499d19e13bf9b70e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '23bbd60607d4042e927fc74596f78310') in 0.509440 seconds
+  Import took 0.561558 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001062 seconds.
+  path: Assets/_Gamer Wolf Project File/Models/Player/Turn Based Combat Game Project Ninja Rigged.fbx
+  artifactKey: Guid(155de74d53655c444b92c02866a40428) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/Models/Player/Turn Based Combat Game Project Ninja Rigged.fbx using Guid(155de74d53655c444b92c02866a40428) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '019bf59683c751cbe8b77a72e37176ab') in 0.078592 seconds
+  Import took 0.099656 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000484 seconds.
+  path: Assets/_Gamer Wolf Project File/My Materials/Green.mat
+  artifactKey: Guid(2bbb8c47b62e4d64e834b8bedd3b664a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/My Materials/Green.mat using Guid(2bbb8c47b62e4d64e834b8bedd3b664a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a9e496f67cf2407d182b7f9f28659965') in 0.043214 seconds
+  Import took 0.050229 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 108.761591 seconds.
+  path: Assets/Scenes/Testing Scene.unity
+  artifactKey: Guid(9aabc6e215379c646b6e0513ad929a46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Testing Scene.unity using Guid(9aabc6e215379c646b6e0513ad929a46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5aff36590010bf9e73f68d979afe3d6c') in 0.005677 seconds
+  Import took 0.120472 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 948.920377 seconds.
+  path: Assets/_Gamer Wolf Project File/Models/Tiles.fbx
+  artifactKey: Guid(0d376af6be1a084438f151dee01735e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/Models/Tiles.fbx using Guid(0d376af6be1a084438f151dee01735e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '152229ea6e7874702d4eb55a750e8dfd') in 0.181315 seconds
+  Import took 0.220580 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 32.949874 seconds.
+  path: Assets/Scenes/Main Scene.unity
+  artifactKey: Guid(d1c3109bdb54ad54c8a2b2838528e640) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Main Scene.unity using Guid(d1c3109bdb54ad54c8a2b2838528e640) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3531b833339a982f7ad34d7094813fa8') in 0.005787 seconds
+  Import took 0.055935 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 43.325539 seconds.
+  path: Assets/Scenes/Testing Scene.unity
+  artifactKey: Guid(9aabc6e215379c646b6e0513ad929a46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Testing Scene.unity using Guid(9aabc6e215379c646b6e0513ad929a46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd113fbc439443f5836e1c184de94a269') in 0.005651 seconds
+  Import took 0.061176 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 632.316771 seconds.
+  path: Assets/_Gamer Wolf Project File/My Scripts/Base Scripts/Mover.cs
+  artifactKey: Guid(3630b5d4b72df2e409c2a5954434e374) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/My Scripts/Base Scripts/Mover.cs using Guid(3630b5d4b72df2e409c2a5954434e374) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '81e0088f3627078810a49c4f0e54c6db') in 0.020000 seconds
+  Import took 0.063240 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.206975 seconds.
+  path: Assets/_Gamer Wolf Project File/My Scripts/Game Managment Scripts/Board.cs
+  artifactKey: Guid(ef93acabef9242f4ba9a4cb1946cf682) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Gamer Wolf Project File/My Scripts/Game Managment Scripts/Board.cs using Guid(ef93acabef9242f4ba9a4cb1946cf682) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '80cd5dbeaf2413bc26466c37d32e9175') in 0.007807 seconds
+  Import took 0.045743 seconds .
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
