@@ -1,19 +1,21 @@
+using System;
 using UnityEngine;
 using GamerWolf.Utilitys;
 using System.Collections;
 using System.Collections.Generic;
-
 namespace GamerWolf.TurnBasedStratgeyGame {
+    
     public class Node : MonoBehaviour {
         
         #region Variables.
         [Header("External Referances")]
         [SerializeField] private Transform linkPrefab;
         [SerializeField] private Transform nodeViewPrefabs;
-        [SerializeField] private LayerMask obstacleMask;
+        [SerializeField] private LayerMask obstacleMask,doorMask;
         [SerializeField] private bool isGoal = false;
-        [SerializeField] private bool hasItem = false;
+        [SerializeField] private bool hasItem = false,hasKey = false;
         [SerializeField] private bool canHideThePlayer = false;
+        [SerializeField] private bool isDoorNode = false;
         [Header("Stats")]
         [SerializeField] private float scaleTime = 0.1f;
         [SerializeField] private float dealyTime = 0.25f;
@@ -21,14 +23,15 @@ namespace GamerWolf.TurnBasedStratgeyGame {
         [SerializeField] private iTween.EaseType easeType = iTween.EaseType.easeInExpo;
 
         /// Private Variables.
-
-        
         private Vector3 initalSize;
         private Vector2 m_coordinate;
-        private List<Node> m_neighboursNodesList = new List<Node>();
         private bool isInitialize = false;
+        private List<Node> m_neighboursNodesList = new List<Node>();
         private List<Node> m_LinkedNeighbours = new List<Node>();
+        private Dictionary<Key.KeyType , Node> doorNodeList = new Dictionary<Key.KeyType, Node>();
+        private Key.KeyType neighbourDoorKey;
         private Board board;
+        
 
         #endregion
 
@@ -61,19 +64,49 @@ namespace GamerWolf.TurnBasedStratgeyGame {
         public void InitNeigboursNodes(){
             StartCoroutine(InitRoutine());
         }
+        
         private IEnumerator InitRoutine(){
             yield return new WaitForSeconds(0.1f);
             foreach (Node n in m_neighboursNodesList){
+               
                 if(!m_LinkedNeighbours.Contains(n)){
                     Obstacles obstacle = FindObstacle(n);
+
+                    Door door = FindDoor(n ,out neighbourDoorKey);
+
                     if(obstacle == null){
-                        LinkNode(n);
-                        n.InitNode();    
+                        if(door != null){
+                            n.isDoorNode = true;
+                            Debug.Log("Found A Door at " + n.name);
+                            doorNodeList.Add(neighbourDoorKey,n);
+                            Board.Instance.FindDoorNodes(n);
+                        }else{
+                            LinkNode(n);
+                            n.InitNode();    
+
+                        }
                     }
                 }
             }
             
             
+        }
+        [ContextMenu("Connect Door Nodes")]
+        public void ConnectDoorNode(Key.KeyType _doorKey){
+            StartCoroutine(InitConnectDoorNodes(_doorKey));
+        }
+        private IEnumerator InitConnectDoorNodes(Key.KeyType _doorKey){
+            yield return new WaitForSeconds(0.1f);
+            if(doorNodeList.ContainsKey(_doorKey)){
+                if(!m_LinkedNeighbours.Contains(doorNodeList[_doorKey])){
+                    LinkNode(doorNodeList[_doorKey]);
+                    doorNodeList[_doorKey].InitNode();
+                    doorNodeList[_doorKey].isDoorNode = false;
+                    Board.Instance.RemoveDoorNode(doorNodeList[_doorKey]);
+                    doorNodeList.Remove(_doorKey);
+                }
+                
+            }
         }
         public void LinkNode(Node _targetNode){
             Transform linkInstance = Instantiate(linkPrefab,transform.position,Quaternion.identity);
@@ -116,13 +149,26 @@ namespace GamerWolf.TurnBasedStratgeyGame {
 
             return nList;
         }
+
+        // Find Searce for Any Obstacle in Between Nodes..........
         private Obstacles FindObstacle(Node _targetNode){
             Vector3 direction = _targetNode.transform.position - transform.position;
             RaycastHit hit;
-            if(Physics.Raycast(transform.position,direction,out hit,Board.spacing,obstacleMask,QueryTriggerInteraction.UseGlobal)){
-//                Debug.Log("Node Find Obstacel : hit an Obstacle form " + this.name + " to " + _targetNode.name);
+            if(Physics.Raycast(transform.position,direction,out hit,Board.spacing,obstacleMask,QueryTriggerInteraction.Collide)){
                 return hit.transform.GetComponent<Obstacles>();
             }
+            return null;
+        }
+        private Door FindDoor(Node _targetNode,out Key.KeyType _doorType){
+            Vector3 direction = _targetNode.transform.position - transform.position;
+
+            RaycastHit hit;
+            if(Physics.Raycast(transform.position,direction,out hit,Board.spacing,doorMask,QueryTriggerInteraction.UseGlobal)){
+                Door door = hit.transform.GetComponent<Door>();
+                _doorType = door.GetDoorKeyType();
+                return door;
+            }
+            _doorType = default;
             return null;
         }
         public Node FindNeighbourAt(List<Node> nodes,Vector2 direction){
@@ -155,12 +201,21 @@ namespace GamerWolf.TurnBasedStratgeyGame {
             get{
                 return hasItem;
             }
+            set{
+                hasItem = value;
+            }
         }
         public bool GetHideThePlayerNode{
             get{
                 return canHideThePlayer;
             }
         }
+        public bool GetDoorNode{
+            get{
+                return isDoorNode;
+            }
+        }
+        
         
 
         #endregion

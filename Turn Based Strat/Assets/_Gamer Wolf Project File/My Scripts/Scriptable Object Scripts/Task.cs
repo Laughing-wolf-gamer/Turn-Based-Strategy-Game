@@ -15,7 +15,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
                 
         [TextArea(3,2)]
         
-        public string taskDescriptsion;
+        public string taskDescription;
         public bool isTaskCompleted;
         
     }

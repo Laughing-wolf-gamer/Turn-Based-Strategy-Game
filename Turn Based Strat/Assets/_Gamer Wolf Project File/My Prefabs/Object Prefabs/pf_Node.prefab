@@ -130,8 +130,12 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 256
+  doorMask:
+    serializedVersion: 2
+    m_Bits: 8192
   isGoal: 0
   hasItem: 0
+  hasKey: 0
   canHideThePlayer: 0
   scaleTime: 1
   dealyTime: 1.2

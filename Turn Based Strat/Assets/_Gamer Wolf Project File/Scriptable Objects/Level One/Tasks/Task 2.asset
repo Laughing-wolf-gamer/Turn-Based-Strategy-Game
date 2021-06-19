@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Task 2
   m_EditorClassIdentifier: 
   taskType: 0
-  taskDescriptsion: Complete the Level in less than 4 steps.
+  taskDescription: Complete the Level in Less than Some amount
   isTaskCompleted: 0

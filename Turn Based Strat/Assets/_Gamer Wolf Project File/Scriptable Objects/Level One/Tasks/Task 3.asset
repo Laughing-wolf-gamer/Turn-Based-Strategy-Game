@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Task 3
   m_EditorClassIdentifier: 
   taskType: 2
-  taskDescriptsion: Complete the Level
-  isTaskCompleted: 1
+  taskDescription: Just Complete the Level
+  isTaskCompleted: 0

@@ -27,6 +27,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         [SerializeField] private UnityEvent OnLevelEndEvents;
         [SerializeField] private UnityEvent loseLevelEvents;
         [SerializeField] private List<EnemyBrain> m_enemyList = new List<EnemyBrain>();
+        [SerializeField] private List<Door> m_doorsList = new List<Door>();
         
         
         
@@ -94,6 +95,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         private IEnumerator StartLevelRoutine(){
             Debug.Log("StartLevelRoutine");
             m_player.SetInputState(false);
+            /// Invokes the Level Start Event......
             OnGameStartEvents?.Invoke();
             while (!hasLevelStarted){
                 
@@ -101,7 +103,6 @@ namespace GamerWolf.TurnBasedStratgeyGame{
                 yield return null;
                 
             }
-            /// Invokes the Level Start Event......
             
         }
 
@@ -136,8 +137,27 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         }
     
             
-        public bool isOnItem(){
-            return m_board.GetPlayerNode == m_board.GetItemNode;
+        public Interactable isOnItem(){
+            for(int i = 0; i < m_board.GetItemNodeList.Count; i++){
+                if(m_board.GetItemNodeList[i] == m_board.GetPlayerNode){
+                    return m_board.GetPickUpItemList[i];
+                }
+            }
+            return null;
+        }
+        public void OpenDoors(Key.KeyType keyType){
+            foreach(Door door in m_doorsList){
+                if(door.GetDoorKeyType() == keyType){
+                    door.OpenDoor();
+                    for (int i = 0; i < m_board.GetDoorNodeList.Count; i++){
+                        m_board.GetDoorNodeList[i].ConnectDoorNode(door.GetDoorKeyType());
+                        
+                    }
+                    
+                }
+            }
+            
+
         }
         
         

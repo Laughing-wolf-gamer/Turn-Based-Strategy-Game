@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Task 1
   m_EditorClassIdentifier: 
   taskType: 1
-  taskDescriptsion: Complete the Level in less than 10 steps.
+  taskDescription: Collect an Item
   isTaskCompleted: 0

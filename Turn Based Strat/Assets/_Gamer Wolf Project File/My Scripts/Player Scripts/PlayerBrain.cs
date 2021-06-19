@@ -13,6 +13,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         private Transform GFXTransform;
         private Inputs input;
         private Mover playerMover;
+        private KeyHolder keyHolder;
         private bool enableInputs = false;
         public bool hasPickedUpItem {get;private set;}
         
@@ -25,7 +26,8 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             base.Awake();
             input = GetComponent<Inputs>();
             playerMover = GetComponent<Mover>();
-            GFXTransform = transform.Find("Ninja GFX").transform;
+            keyHolder = GetComponent<KeyHolder>();
+            //GFXTransform = transform.Find("Ninja GFX").transform;
 
         }
         protected override void Start(){
@@ -56,8 +58,6 @@ namespace GamerWolf.TurnBasedStratgeyGame{
                     }
                 }
                 CamerMovement.Instance.RotateCamera(input.GetCameraRotationAmount());
-                
-                
             }
         }
         public override void FinsiedTurn(){
@@ -81,13 +81,20 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             }
         }
         public void CollectItem(){
-            if(GameHandler.Instance.isOnItem()){
-                if(Board.Instance.GetPickUpItem != null){
-                    Board.Instance.GetPickUpItem.Interact();
+            if(GameHandler.Instance.isOnItem() != null){
+                Interactable item = GameHandler.Instance.isOnItem();
+                if(item.GetITemType() == ItemType.KEY){
+                    Key itemKey = item.GetComponent<Key>();
+                    if(itemKey != null){
+                        keyHolder.AddKey(itemKey.GetKeyType());
+                        GameHandler.Instance.OpenDoors(itemKey.GetKeyType());
+                    }
                 }
+                item.Interact();
             }
         
         }
+        
         
         
 
