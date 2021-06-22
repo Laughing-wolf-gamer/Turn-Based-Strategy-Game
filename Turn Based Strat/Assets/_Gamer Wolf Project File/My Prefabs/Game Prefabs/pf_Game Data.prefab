@@ -2507,7 +2507,9 @@ MonoBehaviour:
   tasksCompletedUI:
   - {fileID: 688818416432600537}
   - {fileID: 688818416373805583}
-  taskCompleteToggle: []
+  taskCompleteToggle:
+  - {fileID: 688818415744685629}
+  - {fileID: 688818415501252242}
 --- !u!1 &688818416965579295
 GameObject:
   m_ObjectHideFlags: 0
@@ -2686,8 +2688,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa2cbe38a1e5b734e98cefdc4f823e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraPivot: {fileID: 688818417072861361}
+  maxRotation: 30
   rotationSpeed: 8
+  roationThreshold: 0.2
 --- !u!1 &688818417162712948
 GameObject:
   m_ObjectHideFlags: 0
@@ -2732,7 +2735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalPrefab: {fileID: 3512837281401040291, guid: 92e8c407f58e1d646956952cab6d174d, type: 3}
-  pickUpItemPrefabs: {fileID: 3445745473658073021, guid: 7fd322a9a290d4c47a1b11d664e326d3, type: 3}
+  itemPrefabs: []
   playerHideItems: {fileID: 758500375729034169, guid: 83854c07209955c4a8363adb4fe4e34e, type: 3}
   drawGoalNodeTime: 1
   drawGoalDelayTime: 0.1
@@ -3084,6 +3087,7 @@ MonoBehaviour:
         m_CallState: 2
   m_enemyList:
   - {fileID: 0}
+  m_doorsList: []
 --- !u!1 &688818417315941000
 GameObject:
   m_ObjectHideFlags: 0

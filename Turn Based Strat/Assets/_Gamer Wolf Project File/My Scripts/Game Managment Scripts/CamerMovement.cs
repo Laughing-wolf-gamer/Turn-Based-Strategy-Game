@@ -8,11 +8,14 @@ namespace GamerWolf.TurnBasedStratgeyGame{
     public class CamerMovement : MonoBehaviour {
 
         public static CamerMovement Instance{get;private set;}
-        [SerializeField] private Transform cameraPivot;
         
+        [SerializeField] private float maxRotation = 15f;
         [SerializeField] private float rotationSpeed = 8f;
+        [SerializeField] private float roationThreshold = 0.2f;
         private float rotationAmountRef;
-        private float currentRotationAmount;
+        
+        
+        private Vector3 targetAngle = Vector3.zero;
         
         private void Awake(){
             if(Instance == null){
@@ -20,17 +23,25 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             }else{
                 Destroy(Instance.gameObject);
             }
-            if(cameraPivot == null){
-                cameraPivot = this.transform;
-            }
+            targetAngle = transform.eulerAngles;
         }
-        private void LateUpdate(){
-            cameraPivot.Rotate(Vector3.up * currentRotationAmount,Space.World);
-
-        }
+        
         public void RotateCamera(float _rotateAmount){
-            currentRotationAmount = Mathf.SmoothDamp(currentRotationAmount,_rotateAmount,ref rotationAmountRef,rotationSpeed * Time.deltaTime);
+            // Horizontal Rotation;
+            if(Mathf.Abs(_rotateAmount) > roationThreshold){
+                Debug.Log("Rotation Amount is " + _rotateAmount);
+                targetAngle += Vector3.up * _rotateAmount;
+                targetAngle = new Vector3(targetAngle.x,Mathf.Clamp(targetAngle.y,-maxRotation,maxRotation),targetAngle.z);
+                transform.eulerAngles = targetAngle;
+            }else{
+                targetAngle = transform.eulerAngles;
+                float targetRotation = Mathf.SmoothDampAngle(transform.eulerAngles.y,0f,ref rotationAmountRef,rotationSpeed * Time.deltaTime);
+                transform.eulerAngles = Vector3.up * targetRotation;
+            }
+            
+            
         }
+        
 
         
         

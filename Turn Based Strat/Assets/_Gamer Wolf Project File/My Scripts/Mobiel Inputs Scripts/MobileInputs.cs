@@ -6,16 +6,18 @@ namespace GamerWolf.Utilitys{
     public class MobileInputs : MonoBehaviour {
         
 
-        public static MobileInputs Instance {get;private set;}
+        private static MobileInputs Instance;
         [SerializeField] private LayerMask playerLayer;
         private Camera cam;
         private Vector2 startPos;
         private Vector2 endPos;
         private Vector3 swipeDirecionWithCollider;
         private float swipAmount;
+        private Vector3 dragDirection;
         private Collider hitColliders;
         
         private Vector2 startCameraPos;
+        private Vector2 swipStart = Vector2.zero;
         private void Awake(){
             if(Instance == null){
                 Instance = this;
@@ -27,7 +29,6 @@ namespace GamerWolf.Utilitys{
                 cam = Camera.main;
             }
         }
-        private Vector2 _swipStart = Vector2.zero;
         private void Update(){
             GetMouseSwipDirectionWithCollider();
             DragSwipe();
@@ -39,30 +40,32 @@ namespace GamerWolf.Utilitys{
             }
             Vector2 swipEnd = Vector2.zero;
             if(Input.GetMouseButtonDown(0)){
-                _swipStart = GetMousePos();
+                swipStart = GetMousePos();
                 
             }
             else if(Input.GetMouseButton(0)){
                 swipEnd = GetMousePos();
-                Vector2 DirectionDefernece = (_swipStart - swipEnd).normalized;
+                Vector2 DirectionDefernece = (swipStart - swipEnd).normalized;
                 if(Mathf.Abs(DirectionDefernece.x) > Mathf.Abs(DirectionDefernece.y)){
                     DirectionDefernece.y = 0f;
                 }else{
                     DirectionDefernece.x = 0f;
                 }
                 if(DirectionDefernece.x > 0){
-                    swipAmount = -Vector2.Distance(_swipStart,GetMousePos());
+                    swipAmount = -Vector2.Distance(swipStart,GetMousePos());
 
                 }else{
-                    swipAmount = Vector2.Distance(_swipStart,GetMousePos());
+                    swipAmount = Vector2.Distance(swipStart,GetMousePos());
                 }
+                dragDirection = new Vector3(DirectionDefernece.x,0f,DirectionDefernece.y) * swipAmount;
+                
                 
                 
             }
             else if(Input.GetMouseButtonUp(0)){
                 Debug.Log("Swip Amount " + swipAmount);
                 swipAmount = 0f;
-                _swipStart = Vector2.zero;
+                swipStart = Vector2.zero;
                 Debug.Log("Swip Amount " + swipAmount);
             }
         }
@@ -118,14 +121,18 @@ namespace GamerWolf.Utilitys{
             }
             swipeDirecionWithCollider = new Vector3(DirectionDefernece.x,0f,DirectionDefernece.y);
 
-            Debug.Log("Swipe Direction with Collider is " + GetSwipDirection());
+            Debug.Log("Swipe Direction with Collider is " + GetSwipDirectionWithCollider());
             
         }
-        public static Vector3 GetSwipDirection(){
+        public static Vector3 GetSwipDirectionWithCollider(){
             return Instance.swipeDirecionWithCollider;
         }
         public static float GetSwipAmount(){
             return Instance.swipAmount;
+            
+        }
+        public static Vector3 GetDragDirection(){
+            return Instance.dragDirection;
         }
         
 

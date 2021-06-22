@@ -20,8 +20,8 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         }
         private void Update(){
             
-            verticalInputs = MobileInputs.GetSwipDirection().z;
-            horizontalInput = MobileInputs.GetSwipDirection().x;
+            verticalInputs = MobileInputs.GetSwipDirectionWithCollider().z;
+            horizontalInput = MobileInputs.GetSwipDirectionWithCollider().x;
             
         }
         public Vector2 GetInputs(){
@@ -30,6 +30,10 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         public float GetCameraRotationAmount(){
             float swipMultiPlier = 5f;
             return MobileInputs.GetSwipAmount() * swipMultiPlier;
+        }
+        public Vector3 GetDraggingDirection(){
+            float swipMultiPlier = 2f;
+            return MobileInputs.GetDragDirection() * swipMultiPlier;
         }
 
         #endregion
