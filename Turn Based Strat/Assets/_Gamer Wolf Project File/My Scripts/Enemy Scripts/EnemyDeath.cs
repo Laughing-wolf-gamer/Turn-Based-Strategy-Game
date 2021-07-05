@@ -1,6 +1,8 @@
 using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
 using System.Collections.Generic;
+using GamerWolf.Utilitys;
 
 namespace GamerWolf.TurnBasedStratgeyGame{
     public class EnemyDeath : MonoBehaviour {
@@ -13,6 +15,8 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         [SerializeField] private float iTweenDealy = 0.3f;
         [SerializeField] private float moveTime = 0.4f;
         [SerializeField] private iTween.EaseType easeType = iTween.EaseType.easeInOutExpo;
+
+        [SerializeField] private UnityEvent onReachedCapturePosition;
 
         
         public void Die(){
@@ -27,6 +31,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
                 "easyType",easeType,
                 "time",moveTime
             ));
+            
         }
         private IEnumerator DeathRoutine(){
             yield return new WaitForSeconds (deathDelay);
@@ -37,6 +42,10 @@ namespace GamerWolf.TurnBasedStratgeyGame{
                 Vector3 capturePos = Board.Instance.GetCapturePositionArray[Board.Instance.GetCurrentCapturedPosition].position;
                 transform.position = capturePos + offScreenOffset;
                 MoveOffBoard(capturePos);
+                onReachedCapturePosition?.Invoke();
+                DebugController.SetDebugTexts(transform.name + "\n Reached CapturePos");
+                transform.eulerAngles = new Vector3(Random.Range(-2f,2f),transform.eulerAngles.y,Random.Range(-2f,2f));
+                
                 yield return new WaitForSeconds(moveTime);
                 Board.Instance.GetCurrentCapturedPosition++;
                 Board.Instance.GetCurrentCapturedPosition = Mathf.Clamp(Board.Instance.GetCurrentCapturedPosition,0,Board.Instance.GetCapturePositionArray.Length);

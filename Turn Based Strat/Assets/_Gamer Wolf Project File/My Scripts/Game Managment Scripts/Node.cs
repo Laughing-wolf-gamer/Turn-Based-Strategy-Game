@@ -49,7 +49,6 @@ namespace GamerWolf.TurnBasedStratgeyGame {
                 initalSize = nodeViewPrefabs.localScale;
                 nodeViewPrefabs.localScale = Vector3.zero;
                 m_neighboursNodesList = FindNeighbours(board.GetAllNodeList());
-                
             }
         }
         
@@ -217,8 +216,11 @@ namespace GamerWolf.TurnBasedStratgeyGame {
         }
         
         
+        
 
         #endregion
+
+        
 
 
     }

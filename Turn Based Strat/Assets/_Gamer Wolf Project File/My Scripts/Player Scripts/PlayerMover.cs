@@ -25,8 +25,8 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             UpdateBoard();
             
         }
-        public void ShowingCompass(bool showCompass){
-            compass.ShowArrow(showCompass);
+        public void ShowingCompass(){
+            compass.ShowArrow(true);
         }
         
         

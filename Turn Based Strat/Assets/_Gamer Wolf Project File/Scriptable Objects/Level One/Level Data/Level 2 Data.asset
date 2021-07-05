@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level 2 Data
   m_EditorClassIdentifier: 
   currentLevelTasks:
-  - taskType: 2
-    task: {fileID: 11400000, guid: 62a3f408b07c32b46a9abb35abe8ec36, type: 2}
   - taskType: 1
     task: {fileID: 11400000, guid: 0c9cb8164e2366f4ab039823529b63e7, type: 2}
+  - taskType: 2
+    task: {fileID: 11400000, guid: 62a3f408b07c32b46a9abb35abe8ec36, type: 2}

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
+using GamerWolf.Utilitys;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
@@ -47,7 +48,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         private Turn m_currentTurn = Turn.Player;
 
         #endregion
-        private int playerTurnCount;
+        [SerializeField] private int playerTurnCount;
         
 
         #endregion
@@ -93,12 +94,12 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         }
         // Play all the events on the Game starting.
         private IEnumerator StartLevelRoutine(){
-            Debug.Log("StartLevelRoutine");
+            DebugController.SetRoutineText("StartLevelRoutine");
             m_player.SetInputState(false);
             /// Invokes the Level Start Event......
             OnGameStartEvents?.Invoke();
-            while (!hasLevelStarted){
-                
+            while(!hasLevelStarted){
+                DebugController.SetDebugTexts("Click To Play");
                 // let the player click the play button.
                 yield return null;
                 
@@ -108,7 +109,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
 
         // Play all the events while the games is playing.
         private IEnumerator PlayLevelRoutine(){
-            Debug.Log("PlayLevelRoutine");
+            DebugController.SetRoutineText("PlayLevelRoutine");
             isGamePlaying = true;
             yield return new WaitForSeconds(delayTime);
             m_player.SetInputState(true);
@@ -120,10 +121,30 @@ namespace GamerWolf.TurnBasedStratgeyGame{
                 isGameOver = isWinner();
 
             }
-            if(isWinner()){
-                Debug.Log("Player Won");
-            }
+            
         }
+        
+        
+
+        // Play all the events at the end of the level.
+        private IEnumerator EndLevelRoutine(){
+            DebugController.SetRoutineText("EndLevelRoutine");
+            isGameOver = true;
+            m_player.SetInputState(false);
+            /// Invokes the Level end Event.
+            OnLevelEndEvents?.Invoke();
+            
+            
+            LevelTaskSystem.SetCompletedTask(playerTurnCount,isGameOver,m_player.hasPickedUpItem);
+            
+            while(!hasLevelEnded){
+                DebugController.SetGameOverText(string.Concat(isGameOver,(isWinner() ? "/n Player Won ": " /n Enemy Won ")));
+                yield return null;
+            }
+            Debug.Log("Game Over..................................");
+            
+        }
+
         private bool isWinner(){
             return m_board.GetPlayerNode == m_board.GetGoalNode;
         }
@@ -151,33 +172,12 @@ namespace GamerWolf.TurnBasedStratgeyGame{
                     door.OpenDoor();
                     for (int i = 0; i < m_board.GetDoorNodeList.Count; i++){
                         m_board.GetDoorNodeList[i].ConnectDoorNode(door.GetDoorKeyType());
-                        
                     }
                     
                 }
             }
             
 
-        }
-        
-        
-
-        // Play all the events at the end of the level.
-        private IEnumerator EndLevelRoutine(){
-            Debug.Log("EndLevelRoutine");
-            isGameOver = true;
-            // if(playerTurnCount < 4 && isWinner()){
-            //     LevelTaskSystem.Instance.SetCompletedTask(TaskType.StepsCount);
-            // }
-            m_player.SetInputState(false);
-            /// Invokes the Level end Event.
-            LevelTaskSystem.Instance.SetCompletedTask(playerTurnCount,isGameOver,m_player.hasPickedUpItem);
-            OnLevelEndEvents?.Invoke();
-            while(!hasLevelEnded){
-                yield return null;
-            }
-            Debug.Log("Game Over..................................");
-            
         }
         public void LevelEnded(){
             hasLevelEnded = true;
@@ -240,8 +240,9 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         public void UpdateTurn(){
             switch (m_currentTurn){
                 case Turn.Player:
+                    playerTurnCount++;
                     if(m_player != null){
-                        Debug.Log("Player Turn");
+
                         // Play Enemy's Turn if Player turn is completed and any enemy is Not Dead.
                         if(m_player.GetIsTurnComplete && !EnemiesAllDead()){
                             PlayEnemyTurn();
@@ -256,7 +257,8 @@ namespace GamerWolf.TurnBasedStratgeyGame{
                     }
                 break;
             }
-            Debug.Log($"Turn Change To {m_currentTurn}");
+            
+            DebugController.SetTurnText(m_currentTurn.ToString());
         }
 
         public bool GethasLevelStarted{get{return hasLevelStarted;}}

@@ -23,7 +23,7 @@ namespace GamerWolf.Utilitys{
                 Instance = this;
             }else{
                 Destroy(Instance.gameObject);
-                Debug.LogWarning("MOBIEL INPUT: More Than one Mobiel Input Object is Found");
+                Debug.LogWarning("MOBILE INPUT: More Than one Mobile Input Object is Found");
             }
             if(cam == null){
                 cam = Camera.main;
@@ -63,10 +63,11 @@ namespace GamerWolf.Utilitys{
                 
             }
             else if(Input.GetMouseButtonUp(0)){
-                Debug.Log("Swip Amount " + swipAmount);
+                
                 swipAmount = 0f;
                 swipStart = Vector2.zero;
-                Debug.Log("Swip Amount " + swipAmount);
+                // dragDirection = Vector3.zero;
+                
             }
         }
         private void GetMouseSwipDirectionWithCollider(){
@@ -121,7 +122,7 @@ namespace GamerWolf.Utilitys{
             }
             swipeDirecionWithCollider = new Vector3(DirectionDefernece.x,0f,DirectionDefernece.y);
 
-            Debug.Log("Swipe Direction with Collider is " + GetSwipDirectionWithCollider());
+            
             
         }
         public static Vector3 GetSwipDirectionWithCollider(){

@@ -15,5 +15,7 @@ MonoBehaviour:
   currentLevelTasks:
   - taskType: 0
     task: {fileID: 11400000, guid: a9cdd91eb177f3a45a0f8547e9e6e023, type: 2}
+  - taskType: 3
+    task: {fileID: 11400000, guid: 0478adfab69cf16439b4c638aab5984f, type: 2}
   - taskType: 2
     task: {fileID: 11400000, guid: 62a3f408b07c32b46a9abb35abe8ec36, type: 2}

@@ -7,6 +7,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         StepsCount,
         ColletItem,
         FinsishTheLevel,
+        No_Kill,
 
     }
     [CreateAssetMenu(fileName = "New Task",menuName = "Scriptable Objects/Task System/Task")]

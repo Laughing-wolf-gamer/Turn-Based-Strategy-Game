@@ -21,7 +21,7 @@ public class Link : MonoBehaviour {
     
 
     public void DrawLink(Vector3 _StartPos, Vector3 _EndPos){
-        transform.localScale =new Vector3(linkThickNess,1f,0f);
+        transform.localScale = new Vector3(linkThickNess,1f,0f);
         Vector3 dirVector = (_EndPos - _StartPos);
         float zScale = dirVector.magnitude - boarderWidth * 2f;
         Vector3 newscale = new Vector3(linkThickNess,1f,zScale);

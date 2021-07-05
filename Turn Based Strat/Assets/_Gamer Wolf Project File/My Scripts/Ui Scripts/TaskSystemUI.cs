@@ -13,23 +13,23 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         [SerializeField] private List<Toggle> taskCompleteToggle;
         
         private void InitTaskUI(){
-            for (int i = 0; i < tasksCompletedUI.Length; i++){
+            taskCompleteToggle = new List<Toggle>();
+            
+            for (int i = 0; i < levelData.currentLevelTasks.Count; i++){
                 string taskDescription = levelData.currentLevelTasks[i].task.taskDescription;
+                tasksCompletedUI[i].gameObject.SetActive(true);
                 tasksCompletedUI[i].transform.Find("Image").Find("Text (TMP)").GetComponent<TextMeshProUGUI>().SetText(taskDescription);
                 Toggle toggle = tasksCompletedUI[i].Find("is Complted Toggle").GetComponent<Toggle>();
-                if(toggle != null){
-                    taskCompleteToggle.Add(toggle);
-                }
+                taskCompleteToggle.Add(toggle);
             }
+            
         }
-        private void Start(){
+        private void Awake(){
             InitTaskUI();
         }
         public void SetToggle(){
-            if(taskCompleteToggle.Count > 0){
-                for (int i = 0; i < taskCompleteToggle.Count; i++){
-                    taskCompleteToggle[i].isOn = levelData.currentLevelTasks[i].task.isTaskCompleted;
-                }
+            for (int i = 0; i < taskCompleteToggle.Count; i++){
+                taskCompleteToggle[i].isOn = levelData.currentLevelTasks[i].task.isTaskCompleted;
             }
         }
 

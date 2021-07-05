@@ -15,8 +15,12 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         private Mover playerMover;
         private KeyHolder keyHolder;
         private bool enableInputs = false;
-        public bool hasPickedUpItem {get;private set;}
-        
+        public bool hasPickedUpItem {
+            get{
+                return pickedItems.Count > 0;
+            }
+        }
+        private List<Interactable> pickedItems;
         
         #endregion
 
@@ -24,6 +28,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         #region Methods.
         protected override void Awake(){
             base.Awake();
+            pickedItems = new List<Interactable>();
             input = GetComponent<Inputs>();
             playerMover = GetComponent<Mover>();
             keyHolder = GetComponent<KeyHolder>();
@@ -33,6 +38,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         protected override void Start(){
             base.Start();
             m_gameHandler.SetPlayer(this);
+            
         }
         public void SetInputState(bool _state){
             enableInputs = _state;
@@ -57,6 +63,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
                         playerMover.MoveFoward();
                     }
                 }
+                // if Wants to Rotate Camera Rotate Camera..........
                 CamerMovement.Instance.RotateCamera(input.GetCameraRotationAmount());
             }
         }
@@ -90,6 +97,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
                         GameHandler.Instance.OpenDoors(itemKey.GetKeyType());
                     }
                 }
+                pickedItems.Add(item);
                 item.Interact();
             }
         

@@ -8,7 +8,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         
         #region Variables.
         [SerializeField] private Transform arrowHeadPrefab;
-        [SerializeField] private float arrowScale;
+        [SerializeField] private Vector3 arrowScale;
         [SerializeField] private float startDistance = 0.4f;
         [SerializeField] private float endDistance = 1.5f;
 
@@ -29,8 +29,11 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         private void Start() {
             m_board = Board.Instance;
             arrowList = new List<Transform>();
-            SetUpCompassArrow();    
+            
+            SetUpCompassArrow();
+            
         }
+        
         
 
         
@@ -42,9 +45,10 @@ namespace GamerWolf.TurnBasedStratgeyGame{
                 Vector3 dir = new Vector3(direction.x,0f,direction.y).normalized;
                 Quaternion rotation = Quaternion.LookRotation(dir);
                 Transform arrowInstance = Instantiate(arrowHeadPrefab,transform.position + dir * startDistance,rotation,transform);
-                arrowInstance.localScale = new Vector3(arrowScale,arrowScale,arrowScale);
-                
+                arrowInstance.localScale = arrowScale;
+                arrowInstance.gameObject.SetActive(false);
                 arrowList.Add(arrowInstance);
+                
             }
         }
         private void ArrowMovement(Transform _arrow){
@@ -57,7 +61,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             ));
         }
         
-        private void ArrowMovement(){
+        public void ArrowMovement(){
             foreach (Transform arrows in arrowList){
                 ArrowMovement(arrows);
             }
@@ -78,6 +82,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
                     }
                 }
             }
+            Debug.Log("Arrow Moveing");
             ResetArrowMovement();
             ArrowMovement();
         }

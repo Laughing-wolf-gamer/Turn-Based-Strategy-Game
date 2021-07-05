@@ -8,20 +8,21 @@ namespace GamerWolf.TurnBasedStratgeyGame{
     public class LevelData : ScriptableObject {
         
         public List<CurrentLevelTask> currentLevelTasks;
-
-
-        
         public void GetStepTask(){
-            foreach(CurrentLevelTask currentLevel in currentLevelTasks){
-                if(currentLevel.taskType == TaskType.StepsCount){
-                    if(!currentLevel.task.isTaskCompleted){
-                        currentLevel.task.isTaskCompleted = true;
+            for (int i = 0; i < currentLevelTasks.Count; i++){
+                if(currentLevelTasks[i].taskType == TaskType.StepsCount){
+                    if(!currentLevelTasks[i].task.isTaskCompleted){
+                        currentLevelTasks[i].task.isTaskCompleted = true;
                     }
+                    break;
                 }
+                
             }
+            // foreach(CurrentLevelTask currentLevel in currentLevelTasks){
+            // }
             
         }
-        public void FinsiedTheLevel(){
+        public void SetFinsiedTheLevel(){
             foreach(CurrentLevelTask currentLevel in currentLevelTasks){
                 if(currentLevel.taskType == TaskType.FinsishTheLevel){
                     if(!currentLevel.task.isTaskCompleted){
@@ -31,7 +32,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             }
             
         }
-        public void isColletedItemTask(){
+        public void SetisColletedItem(){
             foreach(CurrentLevelTask currentLevel in currentLevelTasks){
                 if(currentLevel.taskType == TaskType.ColletItem){
                     if(!currentLevel.task.isTaskCompleted){

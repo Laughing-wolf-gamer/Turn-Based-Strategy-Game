@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace GamerWolf.TurnBasedStratgeyGame{
     public class LevelTaskSystem : MonoBehaviour {
 
-        public static LevelTaskSystem Instance{get;private set;}
+        private static LevelTaskSystem Instance;
         [SerializeField] private TaskSystemUI taskSystemUI;
 
         [SerializeField] private LevelData tasks;
@@ -15,25 +15,28 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         
         
         private void Awake(){
-            if(Instance == null){
-                Instance = this;
-            }else{
-                Debug.LogWarning("More Than one LEVEL TASK SYSTEM found");
-                Destroy(Instance.gameObject);
-            }
+            Instance = this;
+            
         }
         
-        public void SetCompletedTask(int currentLevelStepCount = 0,bool isLevelCompleted = false,bool hasPickedUpItem = false){
-            if(currentLevelStepCount < maxStepToCompleteTheLevel){
-                tasks.GetStepTask();
+        public static void SetCompletedTask(int currentLevelStepCount,bool isLevelCompleted,bool hasPickedUpItem){
+            
+            
+            if(currentLevelStepCount <= Instance.maxStepToCompleteTheLevel){
+                Instance.tasks.GetStepTask();
             }
             if(isLevelCompleted){
-                tasks.FinsiedTheLevel();
+                Instance.tasks.SetFinsiedTheLevel();
             }
             if(hasPickedUpItem){
-                tasks.isColletedItemTask();
+                Instance.tasks.SetisColletedItem();
             }
-            taskSystemUI.SetToggle();
+            Instance.taskSystemUI.SetToggle();
+        }
+        private void OnApplicationQuit(){
+            for (int i = 0; i < tasks.currentLevelTasks.Count; i++){
+                tasks.currentLevelTasks[i].task.isTaskCompleted = false;
+            }
         }
         
 

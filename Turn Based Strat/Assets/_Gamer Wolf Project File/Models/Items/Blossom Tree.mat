@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Blossom Tree
+  m_Shader: {fileID: -6465566751694194690, guid: 26085011e3856fc45a0cee834c77fcb5, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_51d1d0f01a3641928a54113df222385c:
+        m_Texture: {fileID: 2800000, guid: 4e4812c4304b18c449e9fd2436ee93e1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_f275235ca57b4acbb58e482e8d8a211e:
+        m_Texture: {fileID: 2800000, guid: 4e4812c4304b18c449e9fd2436ee93e1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_04e91cefa0ce4948bb774163bbd412a3: 1
+    - Vector1_207ce94658ab43198c355dacdda666de: 0
+    - Vector1_2e4fb348f07d4a18a5ca89dfd2d47be1: 0
+    - Vector1_54968d6c5b134683b019f321393373d8: 1
+    - Vector1_e7c3c1c7ff3c40df883929dd19f77d9a: 16.8
+    m_Colors:
+    - Color_b8e7db369bdc43eea7fb00a8ba9b3bb3: {r: 0.8490566, g: 0.8202207, b: 0.8202207, a: 1}
+    - Vector2_2321757f79054e1f90d66726d0d598eb: {r: 1.03, g: 0, b: 0, a: 0}
+    - Vector2_90829a7e1ac0474bb56f3792f60f2dcd: {r: 3, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []

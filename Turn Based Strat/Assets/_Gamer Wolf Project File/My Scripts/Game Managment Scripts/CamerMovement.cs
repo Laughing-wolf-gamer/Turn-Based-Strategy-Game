@@ -15,6 +15,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         private float rotationAmountRef;
         
         
+        
         private Vector3 targetAngle = Vector3.zero;
         
         private void Awake(){
@@ -29,7 +30,6 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         public void RotateCamera(float _rotateAmount){
             // Horizontal Rotation;
             if(Mathf.Abs(_rotateAmount) > roationThreshold){
-                Debug.Log("Rotation Amount is " + _rotateAmount);
                 targetAngle += Vector3.up * _rotateAmount;
                 targetAngle = new Vector3(targetAngle.x,Mathf.Clamp(targetAngle.y,-maxRotation,maxRotation),targetAngle.z);
                 transform.eulerAngles = targetAngle;
@@ -41,6 +41,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             
             
         }
+        
         
 
         

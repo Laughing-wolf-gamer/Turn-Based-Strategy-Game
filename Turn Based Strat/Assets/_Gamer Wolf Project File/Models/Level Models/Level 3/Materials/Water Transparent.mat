@@ -8,14 +8,13 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Water Transparent
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: d876e0fb6b5605e46b3a3f9fd4c21eed, type: 3}
   m_ShaderKeywords: _RECEIVE_SHADOWS_OFF _SPECULAR_SETUP
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses:
   - SHADOWCASTER
   m_SavedProperties:
@@ -78,6 +77,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_286a5c1ee40447adba0de9a623e1c437: 0.68
+    - Vector1_6cebef09d2a642acac3d5f964805a42e: 10
+    - Vector1_7060b9e4031647588a61bcafbfa84ae7: 5.82
+    - Vector1_70d034573b5b4834a8efcbffcd170534: 3.85
+    - Vector1_8859c826202b4a39928898d97fe76321: 2.74
+    - Vector1_c4136ce812944077abb8a4bc03c36d78: 64.41
+    - Vector1_c738ddc5f91a4c2b84b5a6e27f0d1e27: 13.24
+    - Vector1_e624a03231f94b6c8d31eca8490f13a0: 1.73
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -107,6 +114,9 @@ Material:
     - _WorkflowMode: 0
     - _ZWrite: 0
     m_Colors:
+    - Color_8e2a59c766a249f391d5c27c11f599b1: {r: 0.32808825, g: 0.41492546, b: 0.9056604, a: 1}
+    - Color_b68c1a450eb745db8cc6bafbb70c6d94: {r: 0, g: 0.15880488, b: 0.9528302, a: 0}
+    - Color_e4720b51ecb9490999856278effbf25e: {r: 0, g: 0.9257151, b: 0.933033, a: 0.8392157}
     - _BaseColor: {r: 0, g: 0.7256732, b: 0.9063317, a: 1}
     - _Color: {r: 0, g: 0.48542303, b: 0.8000001, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

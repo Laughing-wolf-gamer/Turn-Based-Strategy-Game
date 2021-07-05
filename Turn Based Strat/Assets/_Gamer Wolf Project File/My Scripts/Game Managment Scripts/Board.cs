@@ -26,11 +26,11 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         [SerializeField] private float drawGoalDelayTime;
         [SerializeField] private iTween.EaseType easeType = iTween.EaseType.easeInOutExpo;
 
-        [SerializeField] private List<Node> allNodeList = new List<Node>();
         [SerializeField] private Transform[] capturedPositionsArray;
-
+        [SerializeField] private Transform nodeHolder;
         
         
+        private List<Node> m_allNodeList = new List<Node>();
         private int m_currentCapturedPosition = 0;
         private Node m_playerNode,m_goalNode;
         private List<Node> m_HideThePlayerNodes,m_itemNodeList,m_DoorNodeList;
@@ -47,6 +47,15 @@ namespace GamerWolf.TurnBasedStratgeyGame{
 
         #endregion
         private void Awake(){
+            if(nodeHolder.childCount > 0){
+                for(int i = 0; i < nodeHolder.childCount; i++){
+                    Node childNodes = nodeHolder.GetChild(i).GetComponent<Node>();
+                    if(childNodes != null){
+                        m_allNodeList.Add(childNodes);
+                    }
+
+                }
+            }
             if(Instance == null){
                 Instance = this;
             }else{
@@ -72,14 +81,14 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         
         // Get all the list of the Nodes in the Games.
         public List<Node> GetAllNodeList(){
-            return allNodeList;
+            return m_allNodeList;
         }
         
         
         // Return a Node at any Vector3 Positon in the World.
         public Node FindNodeAt(Vector3 positon){
             Vector2 boardCord = Utility.GetVector2Int(new Vector2(positon.x,positon.z));
-            return allNodeList.Find(n => n.GetCoordinate == boardCord);
+            return m_allNodeList.Find(n => n.GetCoordinate == boardCord);
         }
         
 
@@ -124,16 +133,21 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             m_DoorNodeList.Remove(_node);
         }
         public void SpawnItem(){
-            foreach(Node n in m_HideThePlayerNodes){
-                Instantiate(playerHideItems,n.transform.position,Quaternion.identity);
-            }
-            for (int i = 0; i < itemPrefabs.Length; i++){
-                Transform pickupItemInstance = Instantiate(itemPrefabs[i].transform, m_itemNodeList[i].transform.position,Quaternion.identity) as Transform;
-                Interactable pickUpItem = pickupItemInstance.GetComponent<Interactable>();
-                if( pickUpItem != null){
-                    m_pickupItemList.Add(pickUpItem);
+            if(m_HideThePlayerNodes.Count > 0){
+                for(int i = 0; i < m_HideThePlayerNodes.Count; i++){
+                    Instantiate(playerHideItems,m_HideThePlayerNodes[i].transform.position,Quaternion.identity);
                 }
             }
+            if(itemPrefabs.Length > 0){
+                for (int i = 0; i < itemPrefabs.Length; i++){
+                    Transform pickupItemInstance = Instantiate(itemPrefabs[i].transform, m_itemNodeList[i].transform.position,Quaternion.identity) as Transform;
+                    Interactable pickUpItem = pickupItemInstance.GetComponent<Interactable>();
+                    if( pickUpItem != null){
+                        m_pickupItemList.Add(pickUpItem);
+                    }
+                }
+            }
+            
             
             
         }
@@ -144,21 +158,24 @@ namespace GamerWolf.TurnBasedStratgeyGame{
 
         public void InitBoard(){
             if(m_playerNode != null){
-                Debug.Log("Initializeing Board");
+                DebugController.SetDebugTexts("Initializeing Board");
                 m_playerNode.InitNode();
                 // // Need to work on It.
-                // m_playerMover.ShowingCompass(true);
+                Invoke(nameof(InvokeCompass),0.4f);
             }
+        }
+        private void InvokeCompass(){
+            m_playerMover.ShowingCompass();
         }
         
         // find the Goal Node.
         private Node FindGoalNode(){
-            return allNodeList.Find(n => n.GetGoalNode);
+            return m_allNodeList.Find(n => n.GetGoalNode);
         }
         private List<Node> FindHideThePlayerNode(){
             List<Node> hideThePlayerNodeList = new List<Node>();
             
-            foreach(Node n in allNodeList){
+            foreach(Node n in m_allNodeList){
                 if(n.GetHideThePlayerNode){
                     hideThePlayerNodeList.Add(n);
                 }
@@ -169,7 +186,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         }
         private List<Node> FindItemNodes(){
             List<Node> itemNodes = new List<Node>();
-            foreach(Node n in allNodeList){
+            foreach(Node n in m_allNodeList){
                 if(n.HasItemNode){
                     itemNodes.Add(n);
                 }
@@ -181,6 +198,7 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             
             m_playerNode = FindPlayerNode();
         }
+        
         public Node GetGoalNode{
             get{
                 return m_goalNode;
@@ -231,6 +249,20 @@ namespace GamerWolf.TurnBasedStratgeyGame{
         }
 
 
+
+        #region  Gimzos
+
+        public void AddNodeToNodeList(Node nodeToAdd){
+            if(!m_allNodeList.Contains(nodeToAdd)){
+                m_allNodeList.Add(nodeToAdd);
+
+            }
+        }
+        public void RemoveNodeFromList(Node nodeToRemove){
+            if(m_allNodeList.Contains(nodeToRemove)){
+                m_allNodeList.Remove(nodeToRemove);
+            }
+        }
         private void OnDrawGizmos(){
             if(m_playerNode != null){
                 Gizmos.DrawSphere(m_playerNode.transform.position,1f);
@@ -238,11 +270,13 @@ namespace GamerWolf.TurnBasedStratgeyGame{
             if(capturedPositionsArray.Length > 0){
                 Gizmos.color = Color.blue;
                 foreach(Transform capturePos in capturedPositionsArray){
-                    Gizmos.DrawCube(capturePos.position,Vector3.one * 0.5f);
+                    Gizmos.DrawCube(capturePos.position,Vector3.one);
                 }
             }
             
         }
+
+        #endregion
         
 
 
